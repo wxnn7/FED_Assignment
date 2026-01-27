@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Analytics - Digital Hawker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .page-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .viz-card {
+            background: #FFF8E1;
+            padding: 40px;
+            border-radius: 20px;
+            min-height: 400px;
+        }
+
+        .viz-card h2 {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.9rem;
+        }
+
+        .list-rank {
+            width: 30px;
+            font-weight: 700;
+        }
+
+        .list-val {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 300px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Standard Logged-In Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-logo-text">Digital <span class="text-gold">Hawker</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="inspector-dashboard.html" class="nav-link">Home</a>
+            <a href="browse.html" class="nav-link">Order</a>
+            <a href="order-history.html" class="nav-link">Order History</a>
+            <a href="#" class="nav-link">Contact Us</a>
+        </div>
+        <div class="nav-actions">
+            <ion-icon name="notifications" style="font-size:1.5rem;"></ion-icon>
+            <div class="nav-divider"></div>
+            <div class="user-profile-nav" onclick="window.location.href='../index.html'">
+                <img src="https://ui-avatars.com/api/?name=Inspector+Brown&background=ddd" class="user-avatar">
+                <span style="font-weight:600;">Inspector (Logout)</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content mobile-centered-container" style="padding-bottom:100px;">
+        <h2 style="text-align:center; margin: 30px 0; font-size:1.5rem;">Sales<br>Analytics</h2>
+
+        <!-- Dropdowns (Mock) -->
+        <div style="width:100%; max-width:320px; margin-bottom:24px;">
+            <select
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
+                <option>Pasir Panjang Food Centre</option>
+            </select>
+            <select
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
+                <option>All Stalls</option>
+            </select>
+        </div>
+
+        <!-- Popular Items Card -->
+        <div
+            style="background:#FFF8E1; border-radius:24px; padding:24px; width:100%; max-width:320px; margin-bottom:24px;">
+            <h3 style="text-align:center; margin-bottom:20px;">Popular Items</h3>
+
+            <div class="popular-list">
+                <div class="pop-item">
+                    <span>1. Chicken Rice</span>
+                    <span class="score">325 <ion-icon name="heart" style="color:red"></ion-icon></span>
+                </div>
+                <div class="pop-item">
+                    <span>2. Laksa</span>
+                    <span class="score">243 <ion-icon name="heart" style="color:red"></ion-icon></span>
+                </div>
+                <div class="pop-item">
+                    <span>3. Satay</span>
+                    <span class="score">210 <ion-icon name="heart" style="color:red"></ion-icon></span>
+                </div>
+                <div class="pop-item">
+                    <span>4. Rojak</span>
+                    <span class="score">193 <ion-icon name="heart" style="color:red"></ion-icon></span>
+                </div>
+                <div class="pop-item">
+                    <span>5. Prata</span>
+                    <span class="score">150 <ion-icon name="heart" style="color:red"></ion-icon></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Peak Hours Card -->
+        <div style="background:#FFF8E1; border-radius:24px; padding:24px; width:100%; max-width:320px;">
+            <h3 style="text-align:center; margin-bottom:20px;">Peak Hours</h3>
+            <div
+                style="background:white; border-radius:12px; height:150px; border:1px solid #eee; display:flex; align-items:flex-end; padding:10px;">
+                <!-- Simple SVG Chart -->
+                <svg width="100%" height="80%" viewBox="0 0 100 50" preserveAspectRatio="none">
+                    <polyline points="0,50 20,30 40,40 60,10 80,20 100,40"
+                        style="fill:none;stroke:var(--primary-color);stroke-width:2" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-bottom-nav">
+        <a href="inspector-dashboard.html" class="mobile-nav-item">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Home</span>
+        </a>
+        <a href="inspector-scheduling.html" class="mobile-nav-item">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>Schedule</span>
+        </a>
+        <a href="inspector-analytics.html" class="mobile-nav-item active">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <span>Stats</span>
+        </a>
+        <a href="../index.html" class="mobile-nav-item">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <style>
+        .pop-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .pop-item:last-child {
+            border-bottom: none;
+        }
+
+        .score {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    </style>
+
+</body>
+
+</html>

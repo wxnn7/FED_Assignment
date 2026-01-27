@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hygiene Overview - Digital Hawker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .page-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .viz-card {
+            background: #FFF8E1;
+            padding: 40px;
+            border-radius: 20px;
+            min-height: 400px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .viz-card h2 {
+            margin-bottom: 24px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-top: 40px;
+            padding: 0 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            right: 40px;
+            height: 2px;
+            background: #333;
+            z-index: 0;
+        }
+
+        .time-point {
+            position: relative;
+            z-index: 1;
+            background: white;
+            border: 2px solid #333;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .time-label {
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            font-weight: 700;
+            width: 40px;
+        }
+
+        .time-grade {
+            position: absolute;
+            bottom: 20px;
+            left: -5px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .issues-list p {
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Standard Logged-In Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-logo-text">Digital <span class="text-gold">Hawker</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="inspector-dashboard.html" class="nav-link">Home</a>
+            <a href="browse.html" class="nav-link">Order</a>
+            <a href="order-history.html" class="nav-link">Order History</a>
+            <a href="#" class="nav-link">Contact Us</a>
+        </div>
+        <div class="nav-actions">
+            <ion-icon name="notifications" style="font-size:1.5rem;"></ion-icon>
+            <div class="nav-divider"></div>
+            <div class="user-profile-nav" onclick="window.location.href='../index.html'">
+                <img src="https://ui-avatars.com/api/?name=Inspector+Brown&background=ddd" class="user-avatar">
+                <span style="font-weight:600;">Inspector (Logout)</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content mobile-centered-container" style="padding-bottom:100px;">
+        <h2 style="text-align:center; margin: 30px 0; font-size:1.5rem;">Stall<br>Overview</h2>
+
+        <!-- Dropdowns (Mock) -->
+        <div style="width:100%; max-width:320px; margin-bottom:24px;">
+            <select
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
+                <option>Pasir Panjang Food Centre</option>
+            </select>
+            <select
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
+                <option>Hwa Kee Noodles</option>
+            </select>
+        </div>
+
+        <!-- Hygiene Grade Card -->
+        <div
+            style="background:#FFF8E1; border-radius:24px; padding:24px; width:100%; max-width:320px; margin-bottom:24px; text-align:center;">
+            <h3>Hygiene Grade<br>History</h3>
+            <p style="margin:12px 0;">Hygiene grade : <strong>(C)</strong></p>
+
+            <h4 style="margin-bottom:20px;">Grade Timeline</h4>
+
+            <!-- Timeline SVG/HTML -->
+            <div class="timeline-container">
+                <div style="display:flex; justify-content:space-between; position:relative; padding-top:20px;">
+                    <!-- Line -->
+                    <div
+                        style="position:absolute; top:26px; left:10px; right:10px; height:2px; background:#333; z-index:0;">
+                    </div>
+
+                    <!-- Points -->
+                    <div class="t-point"><span>A</span>
+                        <div class="dot"></div><span>2021</span>
+                    </div>
+                    <div class="t-point"><span>A</span>
+                        <div class="dot"></div><span>2022</span>
+                    </div>
+                    <div class="t-point"><span>B</span>
+                        <div class="dot"></div><span>2023</span>
+                    </div>
+                    <div class="t-point"><span>C</span>
+                        <div class="dot"></div><span>2024</span>
+                    </div>
+                    <div class="t-point"><span>C</span>
+                        <div class="dot"></div><span>2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inspection Trends Card -->
+        <div
+            style="background:#FFF8E1; border-radius:24px; padding:24px; width:100%; max-width:320px; text-align:center;">
+            <h3 style="margin-bottom:20px;">Inspection<br>Trends</h3>
+            <div class="trends-list" style="text-align:left; font-size:0.9rem; color:#555;">
+                <p>Poor food handling</p>
+                <p>Pest control issues</p>
+                <p>Improper waste disposal</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-bottom-nav">
+        <a href="inspector-dashboard.html" class="mobile-nav-item">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Home</span>
+        </a>
+        <a href="inspector-scheduling.html" class="mobile-nav-item">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>Schedule</span>
+        </a>
+        <a href="inspector-analytics.html" class="mobile-nav-item active">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <span>Stats</span>
+        </a>
+        <a href="../index.html" class="mobile-nav-item">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <style>
+        .t-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            font-size: 0.7rem;
+            width: 30px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: 50%;
+            margin: 4px 0;
+            position: relative;
+        }
+
+        /* Tick marks on timeline line */
+        .t-point::after {
+            content: '|';
+            position: absolute;
+            top: 20px;
+            color: #333;
+            font-size: 10px;
+            z-index: -1;
+        }
+
+        .trends-list p {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 12px;
+        }
+    </style>
+
+</body>
+
+</html>

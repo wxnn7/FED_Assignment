@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Satisfaction - Digital Hawker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .page-header {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .viz-card {
+            background: #FFF8E1;
+            padding: 40px;
+            border-radius: 20px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viz-card h2 {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .feedback-item {
+            background: white;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .view-btn {
+            margin-top: auto;
+            align-self: flex-end;
+            background: var(--primary-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Standard Logged-In Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-logo-text">Digital <span class="text-gold">Hawker</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="inspector-dashboard.html" class="nav-link">Home</a>
+            <a href="browse.html" class="nav-link">Order</a>
+            <a href="order-history.html" class="nav-link">Order History</a>
+            <a href="#" class="nav-link">Contact Us</a>
+        </div>
+        <div class="nav-actions">
+            <ion-icon name="notifications" style="font-size:1.5rem;"></ion-icon>
+            <div class="nav-divider"></div>
+            <div class="user-profile-nav" onclick="window.location.href='../index.html'">
+                <img src="https://ui-avatars.com/api/?name=Inspector+Brown&background=ddd" class="user-avatar">
+                <span style="font-weight:600;">Inspector (Logout)</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content mobile-centered-container" style="padding-bottom:100px;">
+        <h2 style="text-align:center; margin: 30px 0; font-size:1.5rem;">Customer<br>Satisfaction</h2>
+
+        <!-- Dropdowns (Mock) -->
+        <div style="width:100%; max-width:320px; margin-bottom:24px;">
+            <select
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
+                <option>Pasir Panjang Food Centre</option>
+            </select>
+            <select
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
+                <option>Hwa Kee Noodles</option>
+            </select>
+        </div>
+
+        <!-- Feedback Card -->
+        <div
+            style="background:#FFF8E1; border-radius:24px; padding:24px; width:100%; max-width:320px; margin-bottom:24px;">
+            <h3 style="text-align:center; margin-bottom:20px;">Feedback</h3>
+
+            <div class="feedback-list-styled">
+                <div class="fb-item"><span>1. John</span> <span>Good food!</span></div>
+                <div class="fb-item"><span>2. Sarah</span> <span>Fast!</span></div>
+                <div class="fb-item"><span>3. Mike</span> <span>Tasty!</span></div>
+                <div class="fb-item"><span>4. Lisa</span> <span>Clean!</span></div>
+            </div>
+
+            <button class="small-pill-btn">View All</button>
+        </div>
+
+        <!-- Complaints Card -->
+        <div style="background:#FFF8E1; border-radius:24px; padding:24px; width:100%; max-width:320px;">
+            <h3 style="text-align:center; margin-bottom:20px;">Complaints</h3>
+
+            <div class="feedback-list-styled">
+                <div class="fb-item"><span>1. Karen</span> <span>Salty.</span></div>
+                <div class="fb-item"><span>2. Bob</span> <span>Slow.</span></div>
+            </div>
+
+            <button class="small-pill-btn">View All</button>
+        </div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-bottom-nav">
+        <a href="inspector-dashboard.html" class="mobile-nav-item">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Home</span>
+        </a>
+        <a href="inspector-scheduling.html" class="mobile-nav-item">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>Schedule</span>
+        </a>
+        <a href="inspector-analytics.html" class="mobile-nav-item active">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <span>Stats</span>
+        </a>
+        <a href="../index.html" class="mobile-nav-item">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <style>
+        .fb-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .small-pill-btn {
+            background: var(--primary-color);
+            border: none;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 16px auto 0 auto;
+            display: block;
+        }
+    </style>
+
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics & Reporting - Digital Hawker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .analytics-grid {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .analytics-card {
+            background: #FFF8E1;
+            padding: 40px;
+            border-radius: 20px;
+            width: 300px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 24px;
+        }
+
+        .card-btn {
+            background: var(--primary-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 24px;
+            width: fit-content;
+            align-self: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Standard Logged-In Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-logo-text">Digital <span class="text-gold">Hawker</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="inspector-dashboard.html" class="nav-link">Home</a>
+            <a href="browse.html" class="nav-link">Order</a>
+            <a href="order-history.html" class="nav-link">Order History</a>
+            <a href="#" class="nav-link">Contact Us</a>
+        </div>
+        <div class="nav-actions">
+            <ion-icon name="notifications" style="font-size:1.5rem;"></ion-icon>
+            <div class="nav-divider"></div>
+            <div class="user-profile-nav" onclick="window.location.href='../index.html'">
+                <img src="https://ui-avatars.com/api/?name=Inspector+Brown&background=ddd" class="user-avatar">
+                <span style="font-weight:600;">Inspector (Logout)</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content text-center mobile-centered-container">
+        <!-- Figma Header Style -->
+        <h2 style="margin: 40px 0 32px 0; font-size:1.8rem; color:#333;">Analytics &<br>Reporting</h2>
+
+        <div class="analytics-menu-list">
+            <a href="inspector-sales.html" class="menu-pill-btn">
+                <ion-icon name="stats-chart"></ion-icon>
+                Sales Analytics
+            </a>
+
+            <a href="inspector-satisfaction.html" class="menu-pill-btn">
+                <ion-icon name="person"></ion-icon>
+                Customer Satisfaction
+            </a>
+
+            <a href="inspector-overview.html" class="menu-pill-btn">
+                <ion-icon name="bar-chart"></ion-icon>
+                Other Data
+            </a>
+        </div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-bottom-nav">
+        <a href="inspector-dashboard.html" class="mobile-nav-item">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Home</span>
+        </a>
+        <a href="inspector-scheduling.html" class="mobile-nav-item">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>Schedule</span>
+        </a>
+        <a href="inspector-analytics.html" class="mobile-nav-item active">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <span>Stats</span>
+        </a>
+        <a href="../index.html" class="mobile-nav-item">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+</body>
+
+</html>
