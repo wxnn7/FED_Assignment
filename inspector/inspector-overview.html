@@ -113,14 +113,20 @@
         <h2 style="text-align:center; margin: 30px 0; font-size:1.5rem;">Stall<br>Overview</h2>
 
         <!-- Dropdowns (Mock) -->
-        <div style="width:100%; max-width:320px; margin-bottom:24px;  margin: 0 auto;">
-            <select
+        <div style="width:100%; max-width:320px; margin: 0 auto 24px auto;">
+            <select id="hawkerCentre" onchange="updateStallOptions()"
                 style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
-                <option>Pasir Panjang Food Centre</option>
+                <option value="">Select Hawker Centre</option>
+                <option value="Maxwell Food Centre">Maxwell Food Centre</option>
+                <option value="Marsiling Mall Hawker Centre">Marsiling Mall Hawker Centre</option>
+                <option value="Kampung Admiralty Hawker Centre">Kampung Admiralty Hawker Centre</option>
+                <option value="Chomp Chomp Food Centre">Chomp Chomp Food Centre</option>
+                <option value="Tekka Centre">Tekka Centre</option>
+                <option value="Old Airport Road Food Centre">Old Airport Road Food Centre</option>
             </select>
-            <select
+            <select id="stall"
                 style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
-                <option>Hwa Kee Noodles</option>
+                <option value="">Select Hawker Centre First</option>
             </select>
         </div>
 
@@ -249,6 +255,24 @@
         }
     </style>
 
+    <script>
+    function updateStallOptions() {
+        const hawkerCentre = document.getElementById('hawkerCentre').value;
+        const stallSelect = document.getElementById('stall');
+        
+        if (!hawkerCentre) {
+            stallSelect.innerHTML = '<option value="">Select Hawker Centre First</option>';
+            return;
+        }
+        
+        // Generate stall options
+        let options = '<option value="">All Stalls</option>';
+        for (let i = 1; i <= 10; i++) {
+            options += `<option value="Stall ${i}">Stall ${i}</option>`;
+        }
+        stallSelect.innerHTML = options;
+    }
+    </script>
 </body>
 
 </html>

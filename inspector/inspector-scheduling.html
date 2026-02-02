@@ -31,6 +31,27 @@
             flex: 1;
         }
 
+        .cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .cal-nav-btn {
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .cal-nav-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
         .cal-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -38,27 +59,191 @@
             margin-top: 16px;
         }
 
-        .cal-cell {
+        .cal-day-header {
+            font-weight: 600;
             padding: 8px;
-            border-radius: 8px;
-            cursor: pointer;
+            color: #666;
         }
 
-        .cal-cell.active {
+        .cal-cell {
+            padding: 12px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .cal-cell.empty {
+            cursor: default;
+            opacity: 0;
+        }
+
+        .cal-cell.other-month {
+            color: #ccc;
+            cursor: default;
+        }
+
+        .cal-cell.today {
+            background: #E3F2FD;
+            font-weight: 600;
+        }
+
+        .cal-cell.selected {
             background: var(--primary-color);
+            color: white;
             font-weight: 700;
         }
 
-        .cal-cell:hover:not(.active) {
+        .cal-cell.has-inspection {
+            background: #FFD54F;
+            font-weight: 600;
+        }
+
+        .cal-cell.overdue {
+            background: #FFCDD2;
+            font-weight: 600;
+        }
+
+        .cal-cell:hover:not(.empty):not(.other-month) {
             background: rgba(0, 0, 0, 0.05);
+            transform: scale(1.05);
+        }
+
+        .cal-cell.selected:hover {
+            background: var(--primary-color);
         }
 
         .select-bar {
             background: #FFF8E1;
             padding: 40px;
             border-radius: 20px;
-            text-align: center;
             margin-bottom: 60px;
+        }
+
+        .select-bar h2 {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .select-bar.date-selected h2 {
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .inspection-item {
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .inspection-item.overdue {
+            border-left: 4px solid #f44336;
+        }
+
+        .inspection-item.upcoming {
+            border-left: 4px solid #4CAF50;
+        }
+
+        .text-light {
+            color: #666;
+            margin: 0;
+        }
+
+        .no-inspections {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .split-card {
+                flex-direction: column;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .cal-cell {
+                padding: 8px 4px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -87,42 +272,90 @@
     </nav>
 
     <div class="inspector-container">
-        <p style="color:#999; margin-bottom:12px; font-size:0.9rem;">Directory &rarr; Inspections (Scheduling)</p>
+        <p style="color:#999; margin-bottom:12px; font-size:0.9rem;">
+            Directory &rarr; 
+            <a href="inspector-dashboard.html" style="color:#999; text-decoration:none;">Inspections</a> 
+            &rarr; Scheduling
+        </p>
 
         <h1 class="text-center" style="margin-bottom:40px;">Inspections Scheduling</h1>
 
         <div class="split-card">
             <!-- Calendar -->
             <div class="cal-container">
-                <div style="display:flex; justify-content:space-between; margin-bottom:16px; font-weight:700;">
-                    <span>&lt;</span> <span>January 2026</span> <span>&gt;</span>
+                <div class="cal-header">
+                    <span class="cal-nav-btn" onclick="previousMonth()">&lt;</span>
+                    <span id="currentMonthYear">January 2026</span>
+                    <span class="cal-nav-btn" onclick="nextMonth()">&gt;</span>
                 </div>
                 <div class="cal-grid">
-                    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
-                    <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
-                    <span>5</span><span>6</span><span>7</span><span
-                    style="background:#FFD54F; border-radius:4px;">8</span><span>9</span><span>10</span><span>11</span>
-                    <span>12</span><span style="background:#FFD54F; border-radius:4px; font-weight:600;">13</span><span>14</span><span
-                    style="background:#FFD54F; border-radius:4px;">15</span><span>16</span><span>17</span><span>18</span>
-                    <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
-                    <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+                    <span class="cal-day-header">S</span>
+                    <span class="cal-day-header">M</span>
+                    <span class="cal-day-header">T</span>
+                    <span class="cal-day-header">W</span>
+                    <span class="cal-day-header">T</span>
+                    <span class="cal-day-header">F</span>
+                    <span class="cal-day-header">S</span>
+                    <!-- Calendar days will be inserted here by JavaScript -->
                 </div>
             </div>
             
             <!-- List -->
             <div class="list-container">
                 <h4 style="margin-bottom:16px;">Upcoming Inspections:</h4>
-                <p class="text-light">13 Jan: Maxwell Food Centre</p>
-                <p class="text-light">15 Jan: Marsiling Mall Hawker Centre</p>
+                <div id="upcomingList">
+                    <p class="no-inspections">No upcoming inspections scheduled</p>
+                </div>
 
                 <h4 style="margin-top:24px; margin-bottom:16px;">Overdue/Unlogged Inspections:</h4>
-                <p class="text-light">8 Jan: Kampung Admiralty Hawker Centre</p>
+                <div id="overdueList">
+                    <p class="no-inspections">No overdue inspections</p>
+                </div>
             </div>
         </div>
 
         <!-- Selection Bar -->
-        <div class="select-bar">
-            <h2>Select a date for Inspection</h2>
+        <div class="select-bar" id="selectBar">
+            <h2 id="selectBarTitle">Select a date for Inspection</h2>
+            
+            <div id="inspectionForm" style="display: none;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hawkerCentre">Hawker Centre *</label>
+                        <select id="hawkerCentre" required>
+                            <option value="">Select Hawker Centre</option>
+                            <option value="Maxwell Food Centre">Maxwell Food Centre</option>
+                            <option value="Marsiling Mall Hawker Centre">Marsiling Mall Hawker Centre</option>
+                            <option value="Kampung Admiralty Hawker Centre">Kampung Admiralty Hawker Centre</option>
+                            <option value="Chomp Chomp Food Centre">Chomp Chomp Food Centre</option>
+                            <option value="Tekka Centre">Tekka Centre</option>
+                            <option value="Old Airport Road Food Centre">Old Airport Road Food Centre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stall">Stall *</label>
+                        <select id="stall" required>
+                            <option value="">Select Stall</option>
+                            <option value="Stall 1">Stall 1</option>
+                            <option value="Stall 2">Stall 2</option>
+                            <option value="Stall 3">Stall 3</option>
+                            <option value="Stall 4">Stall 4</option>
+                            <option value="Stall 5">Stall 5</option>
+                            <option value="Stall 6">Stall 6</option>
+                            <option value="Stall 7">Stall 7</option>
+                            <option value="Stall 8">Stall 8</option>
+                            <option value="Stall 9">Stall 9</option>
+                            <option value="Stall 10">Stall 10</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="cancelInspection()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveInspection()">Save Inspection</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -145,6 +378,271 @@
             <span>Profile</span>
         </a>
     </nav>
+
+    <script>
+        // Calendar state
+        let currentDate = new Date();
+        let selectedDate = null;
+        
+        // Storage key for inspections
+        const STORAGE_KEY = 'inspections';
+
+        // Get inspections from localStorage
+        function getInspections() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        // Save inspections to localStorage
+        function saveInspections(inspections) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(inspections));
+        }
+
+        // Initialize with some sample data if empty
+        function initializeSampleData() {
+            const inspections = getInspections();
+            if (inspections.length === 0) {
+                const sampleInspections = [
+                    {
+                        id: Date.now() + 1,
+                        date: '2026-01-13',
+                        hawkerCentre: 'Maxwell Food Centre',
+                        stall: 'Stall 3'
+                    },
+                    {
+                        id: Date.now() + 2,
+                        date: '2026-01-15',
+                        hawkerCentre: 'Marsiling Mall Hawker Centre',
+                        stall: 'Stall 7'
+                    },
+                    {
+                        id: Date.now() + 3,
+                        date: '2026-01-08',
+                        hawkerCentre: 'Kampung Admiralty Hawker Centre',
+                        stall: 'Stall 5'
+                    }
+                ];
+                saveInspections(sampleInspections);
+            }
+        }
+
+        // Format date as YYYY-MM-DD
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Format date for display
+        function formatDisplayDate(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00');
+            const day = date.getDate();
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${day} ${monthNames[date.getMonth()]}`;
+        }
+
+        // Render calendar
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Update header
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('currentMonthYear').textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            const calendarGrid = document.querySelector('.cal-grid');
+            
+            // Clear existing day cells (keep headers)
+            const existingDays = calendarGrid.querySelectorAll('.cal-cell');
+            existingDays.forEach(cell => cell.remove());
+            
+            const today = new Date();
+            const todayStr = formatDate(today);
+            const inspections = getInspections();
+            
+            // Empty cells before first day
+            for (let i = 0; i < firstDay; i++) {
+                const cell = document.createElement('span');
+                cell.className = 'cal-cell empty';
+                calendarGrid.appendChild(cell);
+            }
+            
+            // Days of month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('span');
+                cell.className = 'cal-cell';
+                cell.textContent = day;
+                
+                const cellDate = new Date(year, month, day);
+                const cellDateStr = formatDate(cellDate);
+                
+                // Check if today
+                if (cellDateStr === todayStr) {
+                    cell.classList.add('today');
+                }
+                
+                // Check if selected
+                if (selectedDate && cellDateStr === formatDate(selectedDate)) {
+                    cell.classList.add('selected');
+                }
+                
+                // Check if has inspection
+                const inspection = inspections.find(i => i.date === cellDateStr);
+                if (inspection) {
+                    if (cellDate < today && cellDateStr !== todayStr) {
+                        cell.classList.add('overdue');
+                    } else {
+                        cell.classList.add('has-inspection');
+                    }
+                }
+                
+                cell.onclick = () => selectDate(cellDate);
+                calendarGrid.appendChild(cell);
+            }
+            
+            // Update inspection lists
+            updateInspectionLists();
+        }
+
+        // Select a date
+        function selectDate(date) {
+            selectedDate = date;
+            renderCalendar();
+            showInspectionForm();
+        }
+
+        // Show inspection form
+        function showInspectionForm() {
+            const selectBar = document.getElementById('selectBar');
+            const title = document.getElementById('selectBarTitle');
+            const form = document.getElementById('inspectionForm');
+            
+            selectBar.classList.add('date-selected');
+            title.textContent = formatDisplayDate(formatDate(selectedDate));
+            form.style.display = 'block';
+            
+            // Clear form
+            document.getElementById('hawkerCentre').value = '';
+            document.getElementById('stall').value = '';
+        }
+
+        // Hide inspection form
+        function hideInspectionForm() {
+            const selectBar = document.getElementById('selectBar');
+            const title = document.getElementById('selectBarTitle');
+            const form = document.getElementById('inspectionForm');
+            
+            selectBar.classList.remove('date-selected');
+            title.textContent = 'Select a date for Inspection';
+            form.style.display = 'none';
+            
+            selectedDate = null;
+            renderCalendar();
+        }
+
+        // Cancel inspection
+        function cancelInspection() {
+            hideInspectionForm();
+        }
+
+        // Save inspection
+        function saveInspection() {
+            const hawkerCentre = document.getElementById('hawkerCentre').value;
+            const stall = document.getElementById('stall').value;
+            
+            // Validation
+            if (!hawkerCentre || !stall) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const inspections = getInspections();
+            
+            // Create new inspection
+            const newInspection = {
+                id: Date.now(),
+                date: formatDate(selectedDate),
+                hawkerCentre,
+                stall
+            };
+            
+            // Remove existing inspection on same date if any
+            const filteredInspections = inspections.filter(i => i.date !== newInspection.date);
+            filteredInspections.push(newInspection);
+            
+            // Save
+            saveInspections(filteredInspections);
+            
+            // Show success message
+            alert('Inspection scheduled successfully!');
+            
+            // Hide form and refresh
+            hideInspectionForm();
+        }
+
+        // Update inspection lists
+        function updateInspectionLists() {
+            const inspections = getInspections();
+            const today = new Date();
+            const todayStr = formatDate(today);
+            
+            // Separate upcoming and overdue
+            const upcoming = inspections.filter(i => i.date >= todayStr).sort((a, b) => a.date.localeCompare(b.date));
+            const overdue = inspections.filter(i => i.date < todayStr).sort((a, b) => b.date.localeCompare(a.date));
+            
+            // Render upcoming
+            const upcomingList = document.getElementById('upcomingList');
+            if (upcoming.length === 0) {
+                upcomingList.innerHTML = '<p class="no-inspections">No upcoming inspections scheduled</p>';
+            } else {
+                upcomingList.innerHTML = upcoming.map(i => `
+                    <div class="inspection-item upcoming">
+                        <div>
+                            <strong>${formatDisplayDate(i.date)}: ${i.hawkerCentre}</strong>
+                            <p class="text-light">${i.stall}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Render overdue
+            const overdueList = document.getElementById('overdueList');
+            if (overdue.length === 0) {
+                overdueList.innerHTML = '<p class="no-inspections">No overdue inspections</p>';
+            } else {
+                overdueList.innerHTML = overdue.map(i => `
+                    <div class="inspection-item overdue">
+                        <div>
+                            <strong>${formatDisplayDate(i.date)}: ${i.hawkerCentre}</strong>
+                            <p class="text-light">${i.stall}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Navigate to previous month
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        // Navigate to next month
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        // Initialize
+        initializeSampleData();
+        renderCalendar();
+    </script>
 
 </body>
 

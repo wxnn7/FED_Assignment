@@ -85,17 +85,33 @@
     </nav>
 
     <div class="inspector-container">
-        <p style="color:#999; margin-bottom:12px; font-size:0.9rem;">Directory &rarr; Logging Form (Grading)</p>
+        <p style="color:#999; margin-bottom:12px; font-size:0.9rem;">
+            Directory &rarr; 
+            <a href="inspector-dashboard.html" style="color:#999; text-decoration:none;">Inspections</a> 
+            &rarr; Logging Form
+        </p>
+
 
         <h1 class="text-center">Logging Form</h1>
 
         <div class="main-card">
 
-            <div class="stall-selector">
-                <div style="font-weight:700;">Stall Name:</div>
-                <div>Kampung Admiralty Hawker Centre<br>Chicken Rice Stall</div>
-                <ion-icon name="chevron-down"></ion-icon>
-            </div>
+        <div style="width:100%; max-width:320px; margin: 0 auto 24px auto;">
+            <select id="hawkerCentre" onchange="updateStallOptions()"
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
+                <option value="">Select Hawker Centre</option>
+                <option value="Maxwell Food Centre">Maxwell Food Centre</option>
+                <option value="Marsiling Mall Hawker Centre">Marsiling Mall Hawker Centre</option>
+                <option value="Kampung Admiralty Hawker Centre">Kampung Admiralty Hawker Centre</option>
+                <option value="Chomp Chomp Food Centre">Chomp Chomp Food Centre</option>
+                <option value="Tekka Centre">Tekka Centre</option>
+                <option value="Old Airport Road Food Centre">Old Airport Road Food Centre</option>
+            </select>
+            <select id="stall"
+                style="width:100%; padding:12px; border-radius:8px; border:1px solid #ddd; margin-bottom:12px; background:#fff;">
+                <option value="">Select Hawker Centre First</option>
+            </select>
+        </div>
 
             <h2 style="margin-bottom:32px;">Grading</h2>
 
@@ -121,7 +137,24 @@
             </div>
         </div>
     </div>
-
+    <script>
+    function updateStallOptions() {
+        const hawkerCentre = document.getElementById('hawkerCentre').value;
+        const stallSelect = document.getElementById('stall');
+        
+        if (!hawkerCentre) {
+            stallSelect.innerHTML = '<option value="">Select Hawker Centre First</option>';
+            return;
+        }
+        
+        // Generate stall options
+        let options = '<option value="">All Stalls</option>';
+        for (let i = 1; i <= 10; i++) {
+            options += `<option value="Stall ${i}">Stall ${i}</option>`;
+        }
+        stallSelect.innerHTML = options;
+    }
+    </script>
 </body>
 
 </html>
