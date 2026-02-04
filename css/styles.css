@@ -140,6 +140,12 @@ html, body {
   height: 20px;
 }
 
+.eye-icon, .eye-off-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+}
+
 /* Show/hide eye icons based on state */
 .toggle-password .eye-off-icon {
   display: none;
