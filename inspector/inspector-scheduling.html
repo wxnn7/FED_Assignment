@@ -391,46 +391,67 @@
         let currentDate = new Date();
         let selectedDate = null;
         
-        // Storage key for inspections
-        const STORAGE_KEY = 'inspections';
+        // Firebase version - no localStorage!
+        let inspectionsCache = [];
+        let realtimeUnsubscribe = null;
 
-        // Get inspections from localStorage
-        function getInspections() {
-            const data = localStorage.getItem(STORAGE_KEY);
-            return data ? JSON.parse(data) : [];
-        }
-
-        // Save inspections to localStorage
-        function saveInspections(inspections) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(inspections));
-        }
-
-        // Initialize with some sample data if empty
-        function initializeSampleData() {
-            const inspections = getInspections();
-            if (inspections.length === 0) {
-                const sampleInspections = [
-                    {
-                        id: Date.now() + 1,
-                        date: '2026-01-13',
-                        hawkerCentre: 'Maxwell Food Centre',
-                        stall: 'Stall 3'
-                    },
-                    {
-                        id: Date.now() + 2,
-                        date: '2026-01-15',
-                        hawkerCentre: 'Marsiling Mall Hawker Centre',
-                        stall: 'Stall 7'
-                    },
-                    {
-                        id: Date.now() + 3,
-                        date: '2026-01-08',
-                        hawkerCentre: 'Kampung Admiralty Hawker Centre',
-                        stall: 'Stall 5'
-                    }
-                ];
-                saveInspections(sampleInspections);
+        // Load inspections from Firebase
+        async function loadInspections() {
+            try {
+                inspectionsCache = await InspectionDB.getAll();
+                
+                // If empty, create sample data
+                if (inspectionsCache.length === 0) {
+                    await createSampleData();
+                    inspectionsCache = await InspectionDB.getAll();
+                }
+                
+                renderCalendar();
+                updateInspectionLists();
+            } catch (error) {
+                console.error('Error loading inspections:', error);
+                alert('Failed to load inspections. Please refresh.');
             }
+        }
+
+        // Create sample data in Firebase
+        async function createSampleData() {
+            const samples = [
+                {
+                    id: Date.now() + 1,
+                    date: '2026-01-13',
+                    hawkerCentre: 'Maxwell Food Centre',
+                    stall: 'Stall 3',
+                    createdBy: 'inspector_brown'
+                },
+                {
+                    id: Date.now() + 2,
+                    date: '2026-01-15',
+                    hawkerCentre: 'Marsiling Mall Hawker Centre',
+                    stall: 'Stall 7',
+                    createdBy: 'inspector_brown'
+                },
+                {
+                    id: Date.now() + 3,
+                    date: '2026-01-08',
+                    hawkerCentre: 'Kampung Admiralty Hawker Centre',
+                    stall: 'Stall 5',
+                    createdBy: 'inspector_brown'
+                }
+            ];
+            
+            for (const sample of samples) {
+                await InspectionDB.add(sample);
+            }
+        }
+
+        // Set up real-time updates
+        function setupRealtimeListener() {
+            realtimeUnsubscribe = InspectionDB.onSnapshot(inspections => {
+                inspectionsCache = inspections;
+                renderCalendar();
+                updateInspectionLists();
+            });
         }
 
         // Format date as YYYY-MM-DD
@@ -471,7 +492,7 @@
             
             const today = new Date();
             const todayStr = formatDate(today);
-            const inspections = getInspections();
+            const inspections = inspectionsCache;
             
             // Empty cells before first day
             for (let i = 0; i < firstDay; i++) {
@@ -559,43 +580,49 @@
         }
 
         // Save inspection
-        function saveInspection() {
+        async function saveInspection() {
             const hawkerCentre = document.getElementById('hawkerCentre').value;
             const stall = document.getElementById('stall').value;
             
-            // Validation
             if (!hawkerCentre || !stall) {
                 alert('Please fill in all required fields');
                 return;
             }
             
-            const inspections = getInspections();
+            const saveBtn = document.querySelector('.btn-primary');
+            const originalText = saveBtn.textContent;
             
-            // Create new inspection
-            const newInspection = {
-                id: Date.now(),
-                date: formatDate(selectedDate),
-                hawkerCentre,
-                stall
-            };
-            
-            // Remove existing inspection on same date if any
-            const filteredInspections = inspections.filter(i => i.date !== newInspection.date);
-            filteredInspections.push(newInspection);
-            
-            // Save
-            saveInspections(filteredInspections);
-            
-            // Show success message
-            alert('Inspection scheduled successfully!');
-            
-            // Hide form and refresh
-            hideInspectionForm();
+            try {
+                // Show loading
+                saveBtn.disabled = true;
+                saveBtn.textContent = 'Saving...';
+                
+                // Create new inspection
+                const newInspection = {
+                    id: Date.now(),
+                    date: formatDate(selectedDate),
+                    hawkerCentre,
+                    stall,
+                    createdBy: 'inspector_brown'
+                };
+                
+                // Save to Firebase (real-time listener will update UI)
+                await InspectionDB.add(newInspection);
+                
+                alert('Inspection scheduled successfully!');
+                hideInspectionForm();
+                
+            } catch (error) {
+                console.error('Error saving inspection:', error);
+                alert('Failed to save inspection. Please try again.');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = originalText;
+            }
         }
-
         // Update inspection lists
         function updateInspectionLists() {
-            const inspections = getInspections();
+            const inspections = inspectionsCache;
             const today = new Date();
             const todayStr = formatDate(today);
             
@@ -647,8 +674,17 @@
         }
 
         // Initialize
-        initializeSampleData();
-        renderCalendar();
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadInspections();
+            setupRealtimeListener();
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (realtimeUnsubscribe) {
+                realtimeUnsubscribe();
+            }
+        });
     </script>
 
 </body>
