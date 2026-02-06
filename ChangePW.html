@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Change Password</title>
+
+  <link rel="stylesheet" href="vendorBase.css">
+  <link rel="stylesheet" href="ChangePW.css">
+</head>
+
+<body>
+  <div class="page">
+
+    <main class="cp-wrap">
+      <a class="cp-back" href="SettingsSecurity.html" aria-label="Back">
+        <img src="images/arrow (1).png" alt="" class="back-icon">
+      </a>
+
+      <h1 class="cp-title">Change Password</h1>
+
+      <form class="cp-form">
+        <label class="cp-label" for="current">Current password</label>
+        <div class="cp-field">
+          <input id="current" type="password" placeholder="Password">
+          <button class="eye-btn" type="button" aria-label="Show password" data-target="current">
+            <img src="images/eye.png" alt="" class="eye-icon">
+          </button>
+        </div>
+
+        <label class="cp-label" for="new">New password</label>
+        <div class="cp-field">
+          <input id="new" type="password" placeholder="Password">
+          <button class="eye-btn" type="button" aria-label="Show password" data-target="new">
+            <img src="images/eye.png" alt="" class="eye-icon">
+          </button>
+        </div>
+
+        <label class="cp-label" for="confirm">Confirm new password</label>
+        <div class="cp-field">
+          <input id="confirm" type="password" placeholder="Password">
+          <button class="eye-btn" type="button" aria-label="Show password" data-target="confirm">
+            <img src="images/eye.png" alt="" class="eye-icon">
+          </button>
+        </div>
+
+        <div class="cp-rules">
+          <div>Password must be min 8 characters</div>
+          <div>Include upper and lower case characters</div>
+          <div>Include one number</div>
+        </div>
+
+        <button class="cp-save" type="submit">Save</button>
+      </form>
+    </main>
+
+  </div>
+ <script src="ChangePW.js"></script>
+</body>
+</html>
