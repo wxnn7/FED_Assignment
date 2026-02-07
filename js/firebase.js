@@ -20,9 +20,9 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-db.enablePersistence().catch((err) => {
-  console.warn("Persistence error:", err.code);
-});
+// db.enablePersistence().catch((err) => {
+  // console.warn("Persistence error:", err.code);
+// });
 
 
 window.db = db;
