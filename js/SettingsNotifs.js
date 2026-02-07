@@ -96,35 +96,43 @@ function renderRecent(notifs) {
 }
 
 auth.onAuthStateChanged((user) => {
-  if (!user) {
-    console.log("Not logged in — notifications won't load.");
-    return;
-  }
+  if (!user) return;
 
-  const col = db.collection("users")
-    .doc(user.uid)
-    .collection("notifications");
+  const col = db.collection("notification");
 
-  // shows the most recent top 3s
-  col.orderBy("createdAt", "desc").limit(3).onSnapshot((snap) => {
-    const notifs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderRecent(notifs);
-  });
-
-  col.where("priority", "==", "high")
-    .orderBy("createdAt", "desc")
-    .limit(1)
-    .onSnapshot((snap) => {
-      const doc = snap.docs[0];
-      renderUrgent(doc ? { id: doc.id, ...doc.data() } : null);
+  // Load recent notifications (top 3)
+  col.orderBy("dateTime", "desc").limit(3).onSnapshot((snap) => {
+    const notifs = snap.docs.map(d => {
+      const data = d.data();
+      return {
+        id: d.id,
+        title: data.title,
+        message: data.details,
+        createdAt: data.dateTime
+      };
     });
 
-  // Badge count
-  col.where("isRead", "==", false).onSnapshot((snap) => {
-    const count = snap.size;
+    renderRecent(notifs);
+
+    // Simple badge count
     if (badgeEl) {
-      badgeEl.textContent = count;
-      badgeEl.style.display = count > 0 ? "inline-flex" : "none";
+      badgeEl.textContent = notifs.length;
+      badgeEl.style.display = notifs.length > 0 ? "inline-flex" : "none";
     }
   });
+
+  // Show latest notification as urgent
+  col.orderBy("dateTime", "desc").limit(1).onSnapshot((snap) => {
+    if (snap.empty) {
+      renderUrgent(null);
+      return;
+    }
+
+    const data = snap.docs[0].data();
+    renderUrgent({
+      title: data.title,
+      message: data.details
+    });
+  });
 });
+
