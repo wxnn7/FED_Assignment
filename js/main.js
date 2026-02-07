@@ -62,15 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await auth.signInWithPopup(provider);
         const user = result.user;
         
+        console.log('Google sign-in successful, UID:', user.uid);
+        
         // Retrieve user data from Firestore
         const userDoc = await db.collection('users').doc(user.uid).get();
         
         if (userDoc.exists) {
-          // Existing user - redirect to homepage
           const userData = userDoc.data();
-          redirectUserByRole(userData.role);
+          console.log('User data found:', userData);
+          
+          // Check if role exists
+          if (userData.role) {
+            console.log('Redirecting user with role:', userData.role);
+            redirectUserByRole(userData.role);
+          } else {
+            // User exists but no role set - show role modal
+            console.log('User exists but no role found, showing role modal');
+            showRoleModal(user);
+          }
         } else {
           // New user - show role selection modal
+          console.log('New user, showing role modal');
           showRoleModal(user);
         }
         
@@ -224,15 +236,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await auth.signInWithPopup(provider);
         const user = result.user;
         
+        console.log('Google sign-in successful, UID:', user.uid);
+        
         // Check if user already exists
         const userDoc = await db.collection('users').doc(user.uid).get();
         
         if (userDoc.exists) {
-          // Existing user - redirect directly
           const userData = userDoc.data();
-          redirectUserByRole(userData.role);
+          console.log('Existing user found:', userData);
+          
+          // Check if role exists
+          if (userData.role) {
+            console.log('Redirecting user with role:', userData.role);
+            redirectUserByRole(userData.role);
+          } else {
+            // User exists but no role set - show role modal
+            console.log('User exists but no role found, showing role modal');
+            showRoleModal(user);
+          }
         } else {
           // New user - show role selection modal
+          console.log('New user, showing role modal');
           showRoleModal(user);
         }
         
@@ -257,13 +281,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (resetBtn && resetForm && resetSuccess) {
     const emailInput = resetForm.querySelector('#email');
 
-    resetBtn.addEventListener('click', () => {
+    resetBtn.addEventListener('click', async () => {
       let valid = true;
 
       /* -- validate email field -- */
       if (!emailInput.value.trim()) {
         emailInput.classList.add('input-error');
         valid = false;
+        return;
       } else {
         emailInput.classList.remove('input-error');
       }
@@ -272,48 +297,120 @@ document.addEventListener('DOMContentLoaded', () => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (emailInput.value.trim() && !emailRegex.test(emailInput.value.trim())) {
         emailInput.classList.add('input-error');
+        alert('Please enter a valid email address');
         valid = false;
+        return;
       }
 
       if (!valid) return;
 
-      /* -- demo: brief "processing" state -- */
+      /* -- show processing state -- */
       const originalLabel    = resetBtn.textContent;
-      resetBtn.textContent   = 'Sending…';
+      resetBtn.textContent   = 'Checking…';
       resetBtn.style.opacity = '0.7';
       resetBtn.disabled      = true;
 
-      setTimeout(() => {
+      const email = emailInput.value.trim();
+      console.log('=== PASSWORD RESET DEBUG ===');
+      console.log('Email entered:', email);
+
+      try {
+        // Try to check sign-in methods
+        let methods = [];
+        try {
+          console.log('Attempting to fetch sign-in methods...');
+          methods = await firebase.auth().fetchSignInMethodsForEmail(email);
+          console.log('✅ Sign-in methods found:', methods);
+        } catch (fetchError) {
+          console.warn('⚠️ fetchSignInMethodsForEmail failed:', fetchError.code, fetchError.message);
+          console.log('Proceeding with direct password reset attempt...');
+          // If fetchSignInMethodsForEmail fails, just try sending the reset email
+          // Firebase will handle if the email doesn't exist
+        }
+        
+        // If we got methods and found it's a Google-only user
+        if (methods.length > 0) {
+          console.log('Account exists with methods:', methods);
+          
+          if (methods.includes('google.com') && !methods.includes('password')) {
+            console.log('❌ Google-only user detected');
+            resetBtn.textContent   = originalLabel;
+            resetBtn.style.opacity = '';
+            resetBtn.disabled      = false;
+            alert('This account uses Google Sign-In and has no password to reset.\n\nTo change your Google password, visit:\nhttps://accounts.google.com/signin/recovery');
+            return;
+          }
+          
+          console.log('✅ User has password-based authentication');
+        }
+        
+        // Proceed with sending reset email
+        console.log('Attempting to send password reset email...');
+        resetBtn.textContent = 'Sending…';
+        
+        await firebase.auth().sendPasswordResetEmail(email);
+        
+        console.log('✅ Password reset email sent successfully');
+        
         /* -- show success state -- */
         resetForm.style.display    = 'none';
         resetSuccess.style.display = 'block';
         
         /* -- display the email address -- */
         if (sentEmailEl) {
-          sentEmailEl.textContent = emailInput.value.trim();
+          sentEmailEl.textContent = email;
         }
-
-        /* -- reset button state (in case user goes back) -- */
+        
+      } catch (error) {
+        console.error('Password reset error:', error);
+        
+        /* -- reset button state -- */
         resetBtn.textContent   = originalLabel;
         resetBtn.style.opacity = '';
         resetBtn.disabled      = false;
-      }, 1500);
+        
+        /* -- handle different error types -- */
+        if (error.code === 'auth/user-not-found') {
+          alert('No account found with this email address.');
+        } else if (error.code === 'auth/invalid-email') {
+          alert('Invalid email address.');
+        } else if (error.code === 'auth/too-many-requests') {
+          alert('Too many reset attempts. Please try again later.');
+        } else {
+          alert('Failed to send reset email: ' + error.message);
+        }
+      }
     });
 
     /* -- resend link handler -- */
     if (resendBtn) {
-      resendBtn.addEventListener('click', () => {
+      resendBtn.addEventListener('click', async () => {
+        const email = sentEmailEl ? sentEmailEl.textContent : '';
+        
+        if (!email) {
+          alert('Email address not found. Please refresh and try again.');
+          return;
+        }
+        
         resendBtn.textContent = 'Sending…';
         resendBtn.disabled    = true;
 
-        setTimeout(() => {
+        try {
+          await auth.sendPasswordResetEmail(email);
+          
           resendBtn.textContent = 'Link sent!';
           
           setTimeout(() => {
             resendBtn.textContent = 'resend the link';
             resendBtn.disabled    = false;
           }, 2000);
-        }, 1200);
+          
+        } catch (error) {
+          console.error('Resend error:', error);
+          alert('Failed to resend email: ' + error.message);
+          resendBtn.textContent = 'resend the link';
+          resendBtn.disabled    = false;
+        }
       });
     }
   }
@@ -327,12 +424,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Function to show role selection modal
 function showRoleModal(user) {
+  console.log('showRoleModal called for user:', user.email);
+  
   const modal = document.getElementById('role-modal');
   const confirmBtn = document.getElementById('confirm-role-btn');
   
-  if (!modal || !confirmBtn) return;
+  if (!modal || !confirmBtn) {
+    console.error('Role modal elements not found!');
+    alert('Error: Role selection modal not available. Please try signing up with email instead.');
+    return;
+  }
   
   modal.style.display = 'flex';
+  console.log('Role modal displayed');
   
   // Handle role confirmation
   confirmBtn.onclick = async () => {
@@ -342,6 +446,8 @@ function showRoleModal(user) {
       alert('Please select an account type');
       return;
     }
+    
+    console.log('Selected role:', selectedRole.value);
     
     confirmBtn.textContent = 'Creating account...';
     confirmBtn.disabled = true;
@@ -357,6 +463,8 @@ function showRoleModal(user) {
         createdAt: new Date().toISOString(),
         profileComplete: false
       });
+      
+      console.log('User data saved to Firestore successfully');
       
       // Redirect to homepage based on role
       alert('Account created successfully!');
@@ -470,9 +578,16 @@ async function signInWithGoogle(role) {
 
 // Redirect user based on role
 function redirectUserByRole(role) {
+  console.log('redirectUserByRole called with role:', role);
+  
   if (role === 'customer' || role === 'stall-owner') {
+    console.log('Redirecting to index.html');
     window.location.href = 'index.html';
   } else if (role === 'nea-officer') {
+    console.log('Redirecting to nea-officer.html');
     window.location.href = 'nea-officer.html';
+  } else {
+    console.error('Unknown role:', role);
+    alert('Error: Invalid user role. Please contact support.');
   }
 }
