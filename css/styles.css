@@ -293,9 +293,25 @@ html, body {
   text-decoration: none;
   transition: color .2s;
 }
+
 .bottom-link a:hover { color: var(--primary-color); }
 
-.page-signup .bottom-link { margin-top: 24px; }
+/* ── continue as guest (login & Sign up)── */
+.guest{
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  
+}
+.guest-link{
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: .2s;
+}
+.guest-link:hover { opacity: 0.75; }
+
+.page-signup .bottom-link { }
 
 /* ──────────────────────────────
    PILL SELECTOR (signup only)
