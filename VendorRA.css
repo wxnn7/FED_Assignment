@@ -1,0 +1,88 @@
+:root{
+  --bg: #F6F0DA;
+  --nav: #F7E7B8;
+  --shadow-soft: 0 6px 12px rgba(0,0,0,0.16);
+  --text: #111;
+  --muted: #666;
+}
+
+/* PAGE ONLY (vendorBase.css + vendorNav.css already included) */
+
+.main{
+  padding: 16px 18px 22px;
+  background: #fff;
+}
+
+/* Title bar */
+.titlebar{
+  background: #EDECE6;
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+  padding: 12px 16px;
+  margin: 12px 0 12px;
+}
+
+.titlebar-inner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title-ico{ font-size: 18px; }
+
+.title-text{
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* Cream frame around paper */
+.frame{
+  background: #F9F6EA;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+/* White document paper */
+.paper{
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 44px 56px;
+  min-height: 520px;
+}
+
+/* Document typography */
+.doc-title{
+  text-align: center;
+  font-size: 26px;
+  margin: 0 0 22px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.doc-rule{
+  height: 4px;
+  background: #111;
+  width: 78%;
+  margin: 0 auto 26px;
+  border-radius: 999px;
+}
+
+.doc-body{
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.doc-body p{ margin: 0 0 16px; }
+
+.doc-body ul{ margin: 6px 0 16px 20px; }
+
+.doc-body li{ margin: 4px 0; }
+
+/* Responsive */
+@media (max-width: 900px){
+  .paper{ padding: 28px 22px; }
+  .doc-title{ font-size: 22px; }
+}
