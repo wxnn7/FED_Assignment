@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
      1. USER DROPDOWN TOGGLE (logged-in only)
      ────────────────────────────────────────────── */
   const userDropdown = document.querySelector('.user-dropdown');
-  const userToggle = document.querySelector('.user-toggle');
-  const navbar = document.querySelector('.navbar');
-  const mobileMenu = document.querySelector('.mobile-menu') || document.querySelector('.mobile-nav-menu'); // Handling both references
+  const userToggle   = document.querySelector('.user-toggle');
+
   if (userDropdown && userToggle) {
     userToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -44,6 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ──────────────────────────────────────────────
+     5. TOGGLE MOBILE MENU
+     ────────────────────────────────────────────── */
+  const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+  const navbar = document.querySelector('.navbar');
+  const mobileMenu = createMobileMenu();
+
+  if (mobileNavToggle) {
+    mobileNavToggle.addEventListener('click', () => {
+      navbar.classList.toggle('menu-open');
+      mobileMenu.classList.toggle('open');
+    });
+  }
+
+  /* ──────────────────────────────────────────────
      HELPER: Create Mobile Menu
      ────────────────────────────────────────────── */
   function createMobileMenu() {
@@ -73,12 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `}
     `;
-
+    document.body.appendChild(menu);
     return menu;
   }
 
   /* ──────────────────────────────────────────────
-     5. NOTIFICATION BUTTON (demo interaction)
+     6. NOTIFICATION BUTTON (demo interaction)
      ────────────────────────────────────────────── */
   const notificationBtn = document.querySelector('.btn-notification');
 
