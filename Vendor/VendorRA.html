@@ -4,15 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vendors Rental Agreement</title>
-
-  <!-- SHARED -->
+  
   <link rel="stylesheet" href="../css/vendorBase.css" />
   <link rel="stylesheet" href="../css/VendorNav.css" />
 
-  <!-- PAGE -->
   <link rel="stylesheet" href="../css/VendorRA.css" />
 
-  <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 </head>
 
@@ -27,7 +24,6 @@
         <span class="logo-text">Digital<br/>Hawker</span> 
       </a>
 
-      <!-- Nav Links -->
       <ul class="nav-links">
         <li><a href="VendorHome.html">Home</a></li>
         <li><a href="VendorOrders.html">Order</a></li>
@@ -38,7 +34,7 @@
       <!-- User Section -->
       <div class="nav-user">
 
-        <!-- Notifications -->
+        <!-- Notifs-->
         <button class="btn-notification" aria-label="Notifications" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round">
@@ -48,7 +44,7 @@
           <span class="notification-badge">3</span>
         </button>
 
-        <!-- User Dropdown -->
+        <!-- user Dropdown -->
         <div class="user-dropdown">
           <button class="user-toggle" type="button" aria-label="User menu">
             <div class="user-avatar">
@@ -65,7 +61,7 @@
             </svg>
           </button>
 
-          <!-- Dropdown Menu -->
+          <!-- dropdown menu -->
           <div class="dropdown-menu">
             <a href="SettingsAccount.html" class="dropdown-item">My Profile</a>
             <a href="VendorOrderHistory.html" class="dropdown-item">Order History</a>
@@ -79,7 +75,6 @@
     </div>
   </nav>
 
-  <!-- CONTENT -->
   <main class="main">
     <section class="titlebar">
       <div class="titlebar-inner">
@@ -97,33 +92,67 @@
         <div class="doc-rule"></div>
 
         <div class="doc-body">
-          <p><strong>Landlord / Operator:</strong> [Operator Name]<br>
-             <strong>Tenant:</strong> [Vendor Name]</p>
+            <p>
+              <strong>Landlord / Operator:</strong>
+              <span id="operatorName" class="fill" contenteditable="true">Operator Name</span><br>
+              <strong>Tenant:</strong>
+              <span id="tenantName" class="fill" contenteditable="true">Vendor Name</span>
+            </p>
 
-          <p><strong>Stall:</strong> [Stall No. &amp; Hawker Centre Name]<br>
-             <strong>Trade Type:</strong> [Food Type]</p>
+            <p>
+              <strong>Stall:</strong>
+              <span id="stallInfo" class="fill" contenteditable="true">Stall No. & Hawker Centre Name</span><br>
+              <strong>Trade Type:</strong>
+              <span id="tradeType" class="fill" contenteditable="true">Food Type</span>
+            </p>
 
-          <p><strong>Rental Period:</strong> [Start Date] – [End Date]<br>
-             <strong>Monthly Rent:</strong> SGD $[Amount]<br>
-             <strong>Deposit:</strong> SGD $[Amount]</p>
+            <p>
+              <strong>Rental Period:</strong>
+              <span id="startDate" class="fill" contenteditable="true">Start Date</span> –
+              <span id="endDate" class="fill" contenteditable="true">End Date</span><br>
 
-          <p><strong>Tenant Responsibilities:</strong></p>
-          <ul>
-            <li>Follow NEA hygiene and safety regulations</li>
-            <li>Keep stall clean and well-maintained</li>
-            <li>No subletting without approval</li>
-          </ul>
+              <strong>Monthly Rent:</strong> SGD $
+              <span id="monthlyRent" class="fill" contenteditable="true">Amount</span><br>
 
-          <p><strong>Utilities &amp; Fees:</strong><br>
-             Tenant is responsible for utilities and related charges.</p>
+              <strong>Deposit:</strong> SGD $
+              <span id="deposit" class="fill" contenteditable="true">Amount</span>
+            </p>
 
-          <p><strong>Termination:</strong><br>
-             Either party may terminate with 30 day's notice.</p>
+            <p><strong>Tenant Responsibilities:</strong></p>
+            <ul>
+              <li>Follow NEA hygiene and safety regulations</li>
+              <li>Keep stall clean and well-maintained</li>
+              <li>No subletting without approval</li>
+            </ul>
 
-          <p><strong>Signatures:</strong><br>
-             Operator: ________ Date: ____<br>
-             Tenant: ________ Date: ____</p>
-        </div>
+            <p><strong>Utilities & Fees:</strong><br>
+              Tenant is responsible for utilities and related charges.
+            </p>
+
+            <p><strong>Termination:</strong><br>
+              Either party may terminate with 30 day's notice.
+            </p>
+
+            <p>
+              <strong>Signatures:</strong><br>
+              Operator:
+              <span id="operatorSig" class="fill" contenteditable="true">________</span>
+              Date:
+              <span id="operatorSigDate" class="fill" contenteditable="true">____</span><br>
+
+              Tenant:
+              <span id="tenantSig" class="fill" contenteditable="true">________</span>
+              Date:
+              <span id="tenantSigDate" class="fill" contenteditable="true">____</span>
+            </p>
+
+            <!-- this is to save -->
+            <div class="ra-actions">
+              <button id="raSaveBtn" type="button">Save</button>
+              <span id="raStatus"></span>
+            </div>
+
+          </div>
       </div>
     </section>
   </main>
@@ -144,6 +173,18 @@
     dd?.classList.remove('open');
   });
 </script>
+
+<!-- Firebases js library -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<!-- Existing firebase config -->
+<script src="../js/firebase.js"></script>
+
+<!-- Rental Agreement firestore logic -->
+<script src="../js/VendorRA.firebase.js"></script>
+
 
 </body>
 </html>
