@@ -10,7 +10,8 @@
 
 .main{
   padding: 22px 18px 30px;
-  background: #fff;
+  background: var(--bg);
+  min-height: 100vh;
 }
 
 /* title bar */
@@ -95,7 +96,7 @@
 
 .ncard-body{
   flex: 1;
-  padding-left: 80px;
+  padding-left: 0px;
 }
 
 .ncard-title{
