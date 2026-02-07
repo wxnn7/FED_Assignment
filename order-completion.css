@@ -45,6 +45,17 @@ textarea{
     cursor:pointer;
 }
 
+.link {
+    display: inline-block;
+    margin-top: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.link:hover {
+    color: #f4b740;
+}
+
 .report{
     margin-top:12px;
     font-size:13px;

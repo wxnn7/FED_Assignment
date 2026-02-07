@@ -46,8 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       var feedback = textarea ? textarea.value.trim() : '';
       alert('Thank you for your ' + rating + '-star rating!' + (feedback ? '\nWe received your feedback.' : ''));
-      // Optional: redirect to order history or home
-      window.location.href = 'order-history.html';
+      window.location.href = 'order-summary.html';
     });
   }
 
