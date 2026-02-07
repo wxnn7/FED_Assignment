@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
      1. USER DROPDOWN TOGGLE (logged-in only)
      ────────────────────────────────────────────── */
   const userDropdown = document.querySelector('.user-dropdown');
-  const userToggle   = document.querySelector('.user-toggle');
-
+  const userToggle = document.querySelector('.user-toggle');
+  const navbar = document.querySelector('.navbar');
+  const mobileMenu = document.querySelector('.mobile-menu') || document.querySelector('.mobile-nav-menu'); // Handling both references
   if (userDropdown && userToggle) {
     userToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -55,10 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menu.innerHTML = `
       <ul>
-        <li><a href="${homeLink}" class="active">Home</a></li>
-        <li><a href="order.html">Order</a></li>
-        <li><a href="order-history.html">Order History</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="${isLoggedIn ? 'dashboard.html' : 'index.html'}" class="active">Home</a></li>
+        <li><a href="orders.html">Order</a></li>
+        <li><a href="incoming-orders.html">Order History</a></li>
+        <li><a href="${isLoggedIn ? 'contact-us.html' : 'contact-us.html'}">Contact Us</a></li>
       </ul>
       ${!isLoggedIn ? `
         <div class="mobile-auth">
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (notificationBtn) {
     notificationBtn.addEventListener('click', () => {
+      window.location.href = 'notifications.html';
       // Demo: remove badge on click
       const badge = notificationBtn.querySelector('.notification-badge');
       if (badge) {
