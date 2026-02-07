@@ -1,5 +1,27 @@
 // Load all menu items for this stall (e.g. Golden Grain Chicken Rice)
-const STALL_ID = '01';
+// Use ?stall=01 in URL if coming from browse-stalls; default '01'
+function getStallIdFromUrl() {
+  var params = new URLSearchParams(window.location.search);
+  return params.get('stall') || '01';
+}
+const STALL_ID = getStallIdFromUrl();
+
+// Load stall name and description from StallsDB for banner
+if (typeof StallsDB !== 'undefined') {
+  StallsDB.getByStallId(STALL_ID)
+    .then(function (stall) {
+      var nameEl = document.getElementById('stallName');
+      var descEl = document.getElementById('stallDesc');
+      if (nameEl) nameEl.textContent = stall ? (stall.stallName || 'Stall') : 'Stall';
+      if (descEl) descEl.textContent = stall ? (stall.stallDesc || '') : '';
+    })
+    .catch(function () {
+      var nameEl = document.getElementById('stallName');
+      var descEl = document.getElementById('stallDesc');
+      if (nameEl) nameEl.textContent = 'Stall';
+      if (descEl) descEl.textContent = '';
+    });
+}
 
 function formatPrice(value) {
   var n = Number(value);
@@ -11,7 +33,10 @@ function renderMenu(items) {
   var container = document.querySelector('.stalls');
   if (!container) return;
   container.innerHTML = '';
-  if (!Array.isArray(items) || items.length === 0) return;
+  if (!Array.isArray(items) || items.length === 0) {
+    container.innerHTML = '<p class="menu-empty">Menu coming soon!</p>';
+    return;
+  }
 
   items.forEach(function (item) {
     var name = item.itemName || 'Menu Item';

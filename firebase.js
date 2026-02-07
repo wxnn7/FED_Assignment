@@ -319,9 +319,115 @@ const MenuDB = {
   }
 };
 
+// ========================================
+// Stalls Helper Functions
+// ========================================
+// Firestore collection: 'stalls'
+// Document shape: stallID (string), stallName (string), stallDesc (string),
+// stallRating (string), stallTime (string), image (string, e.g. base64 data URL)
+const StallsDB = {
+  /**
+   * Get all stalls
+   */
+  async getAll() {
+    try {
+      const snapshot = await db.collection('stalls').get();
+      return snapshot.docs.map(doc => ({
+        firestoreId: doc.id,
+        ...doc.data()
+      }));
+    } catch (error) {
+      console.error('Error getting stalls:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Get a stall by stallID
+   */
+  async getByStallId(stallID) {
+    try {
+      const snapshot = await db.collection('stalls')
+        .where('stallID', '==', stallID)
+        .get();
+      if (snapshot.empty) return null;
+      const doc = snapshot.docs[0];
+      return { firestoreId: doc.id, ...doc.data() };
+    } catch (error) {
+      console.error('Error getting stall by stallID:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Add new stall
+   */
+  async add(stallData) {
+    try {
+      const docRef = await db.collection('stalls').add({
+        ...stallData,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      console.log('Stall added with ID:', docRef.id);
+      return docRef.id;
+    } catch (error) {
+      console.error('Error adding stall:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Update existing stall
+   */
+  async update(firestoreId, stallData) {
+    try {
+      await db.collection('stalls').doc(firestoreId).update({
+        ...stallData,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      console.log('Stall updated:', firestoreId);
+    } catch (error) {
+      console.error('Error updating stall:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Delete stall
+   */
+  async delete(firestoreId) {
+    try {
+      await db.collection('stalls').doc(firestoreId).delete();
+      console.log('Stall deleted:', firestoreId);
+    } catch (error) {
+      console.error('Error deleting stall:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Real-time listener for all stalls
+   */
+  onSnapshot(callback) {
+    return db.collection('stalls').onSnapshot(
+      (snapshot) => {
+        const stalls = snapshot.docs.map(doc => ({
+          firestoreId: doc.id,
+          ...doc.data()
+        }));
+        callback(stalls);
+      },
+      (error) => {
+        console.error('Error in stalls real-time listener:', error);
+      }
+    );
+  }
+};
+
 // Console helper for testing
 console.log('Firebase initialized for Digital Hawker');
-console.log('Available helpers: InspectionDB, LoggingDB, MenuDB');
+console.log('Available helpers: InspectionDB, LoggingDB, MenuDB, StallsDB');
 console.log('Test with: InspectionDB.getAll().then(console.log)');
 
 
