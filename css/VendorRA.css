@@ -6,14 +6,12 @@
   --muted: #666;
 }
 
-/* PAGE ONLY (vendorBase.css + vendorNav.css already included) */
-
 .main{
   padding: 16px 18px 22px;
   background: #fff;
 }
 
-/* Title bar */
+/* title bar */
 .titlebar{
   background: #EDECE6;
   border-radius: 10px;
@@ -36,15 +34,16 @@
   font-weight: 800;
 }
 
-/* Cream frame around paper */
 .frame{
   background: #F9F6EA;
   border-radius: 10px;
   padding: 12px;
 }
 
-/* White document paper */
 .paper{
+  max-width: 900px;        
+  width: min(900px, 95%);  
+  margin: 0 auto;         
   background: #fff;
   border-radius: 10px;
   box-shadow: var(--shadow-soft);
@@ -53,7 +52,7 @@
   min-height: 520px;
 }
 
-/* Document typography */
+
 .doc-title{
   text-align: center;
   font-size: 26px;
@@ -73,15 +72,19 @@
 .doc-body{
   font-size: 14px;
   line-height: 1.45;
+  max-width: 600px;  
+  margin: 0 auto; 
 }
 
-.doc-body p{ margin: 0 0 16px; }
+.doc-body p{ 
+  margin: 0 0 16px;
+  text-align: justify;
+ }
 
 .doc-body ul{ margin: 6px 0 16px 20px; }
 
 .doc-body li{ margin: 4px 0; }
 
-/* Responsive */
 @media (max-width: 900px){
   .paper{ padding: 28px 22px; }
   .doc-title{ font-size: 22px; }
