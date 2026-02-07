@@ -3,6 +3,87 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ──────────────────────────────────────────────
+     LOGIN BUTTON HANDLER (login page)
+     ────────────────────────────────────────────── */
+  const loginBtn = document.getElementById('login-btn');
+  
+  if (loginBtn) {
+    loginBtn.addEventListener('click', async () => {
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      
+      // Validation
+      let valid = true;
+      
+      if (!email || !email.value.trim()) {
+        if (email) email.classList.add('input-error');
+        valid = false;
+      } else {
+        email.classList.remove('input-error');
+      }
+      
+      if (!password || !password.value.trim()) {
+        if (password) password.classList.add('input-error');
+        valid = false;
+      } else {
+        password.classList.remove('input-error');
+      }
+      
+      if (!valid) return;
+      
+      // Show processing state
+      const originalText = loginBtn.textContent;
+      loginBtn.textContent = 'Logging in...';
+      loginBtn.disabled = true;
+      
+      try {
+        await login(email.value, password.value);
+      } catch (error) {
+        // Reset button on error
+        loginBtn.textContent = originalText;
+        loginBtn.disabled = false;
+      }
+    });
+  }
+
+  /* ──────────────────────────────────────────────
+     GOOGLE LOGIN BUTTON (login page)
+     ────────────────────────────────────────────── */
+  const googleLoginBtn = document.getElementById('google-login-btn');
+  
+  if (googleLoginBtn) {
+    googleLoginBtn.addEventListener('click', async () => {
+      const originalText = googleLoginBtn.textContent;
+      googleLoginBtn.textContent = 'Signing in...';
+      googleLoginBtn.disabled = true;
+      
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        
+        // Retrieve user data from Firestore
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        
+        if (userDoc.exists) {
+          // Existing user - redirect to homepage
+          const userData = userDoc.data();
+          redirectUserByRole(userData.role);
+        } else {
+          // New user - show role selection modal
+          showRoleModal(user);
+        }
+        
+      } catch (error) {
+        console.error('Google login error:', error);
+        alert('Google login failed: ' + error.message);
+        googleLoginBtn.textContent = originalText;
+        googleLoginBtn.disabled = false;
+      }
+    });
+  }
+
+  /* ──────────────────────────────────────────────
      PASSWORD VISIBILITY TOGGLE  (login & signup)
      ────────────────────────────────────────────── */
   const toggleButtons = document.querySelectorAll('.toggle-password');
@@ -52,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmInput.addEventListener('input', checkMatch);
   }
 
-/* ──────────────────────────────────────────────
-     SIGN UP BUTTON - Replace old submit handler
+  /* ──────────────────────────────────────────────
+     SIGN UP BUTTON
      ────────────────────────────────────────────── */
   const signupBtn = document.getElementById('signup-btn');
   
@@ -128,26 +209,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   /* ──────────────────────────────────────────────
-     GOOGLE SIGN UP BUTTON
-     ────────────────────────────────────────────── */
+   GOOGLE SIGN UP BUTTON (with role modal)
+   ────────────────────────────────────────────── */
   const googleSignupBtn = document.getElementById('google-signup-btn');
-  
+
   if (googleSignupBtn) {
     googleSignupBtn.addEventListener('click', async () => {
-      const roleElement = document.querySelector('input[name="account-type"]:checked');
-      
-      if (!roleElement) {
-        alert("Please select an account type first");
-        return;
-      }
-      
       const originalText = googleSignupBtn.textContent;
       googleSignupBtn.textContent = 'Signing in...';
       googleSignupBtn.disabled = true;
       
       try {
-        await signInWithGoogle(roleElement.value);
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        
+        // Check if user already exists
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        
+        if (userDoc.exists) {
+          // Existing user - redirect directly
+          const userData = userDoc.data();
+          redirectUserByRole(userData.role);
+        } else {
+          // New user - show role selection modal
+          showRoleModal(user);
+        }
+        
       } catch (error) {
+        console.error('Google sign in error:', error);
+        alert('Google sign in failed: ' + error.message);
         googleSignupBtn.textContent = originalText;
         googleSignupBtn.disabled = false;
       }
@@ -227,13 +318,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-});
-
-
+}); // ← END OF DOMContentLoaded
 
 
 /* ──────────────────────────────────────────────
-   Firebase Authentication (Sign Up & Login)
+   HELPER FUNCTIONS (defined outside DOMContentLoaded)
+   ────────────────────────────────────────────── */
+
+// Function to show role selection modal
+function showRoleModal(user) {
+  const modal = document.getElementById('role-modal');
+  const confirmBtn = document.getElementById('confirm-role-btn');
+  
+  if (!modal || !confirmBtn) return;
+  
+  modal.style.display = 'flex';
+  
+  // Handle role confirmation
+  confirmBtn.onclick = async () => {
+    const selectedRole = document.querySelector('input[name="modal-account-type"]:checked');
+    
+    if (!selectedRole) {
+      alert('Please select an account type');
+      return;
+    }
+    
+    confirmBtn.textContent = 'Creating account...';
+    confirmBtn.disabled = true;
+    
+    try {
+      // Save user data with selected role
+      await db.collection('users').doc(user.uid).set({
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        role: selectedRole.value,
+        createdAt: new Date().toISOString(),
+        profileComplete: false
+      });
+      
+      // Redirect to homepage based on role
+      alert('Account created successfully!');
+      redirectUserByRole(selectedRole.value);
+      
+    } catch (error) {
+      console.error('Error saving user data:', error);
+      alert('Failed to create account. Please try again.');
+      confirmBtn.textContent = 'Continue';
+      confirmBtn.disabled = false;
+    }
+  };
+}
+
+
+/* ──────────────────────────────────────────────
+   Firebase Authentication Functions
    ────────────────────────────────────────────── */
 
 // Sign Up Function
@@ -254,14 +394,16 @@ async function signUp(email, password, role, displayName) {
     });
 
     console.log("User created and data stored successfully!");
-    alert("Account created successfully!");
+    alert("Account created successfully! Please log in.");
     
-    // Redirect based on role
-    redirectUserByRole(role);
+    // Sign out the user and redirect to login
+    await auth.signOut();
+    window.location.href = 'login.html';
     
   } catch (error) {
     console.error("Error during sign up:", error.code, error.message);
     alert("Sign up failed: " + error.message);
+    throw error;
   }
 }
 
@@ -288,6 +430,7 @@ async function login(email, password) {
   } catch (error) {
     console.error("Error during login:", error.code, error.message);
     alert("Login failed: " + error.message);
+    throw error;
   }
 }
 
@@ -321,6 +464,7 @@ async function signInWithGoogle(role) {
   } catch (error) {
     console.error("Error during Google sign in:", error.code, error.message);
     alert("Google sign in failed: " + error.message);
+    throw error;
   }
 }
 
