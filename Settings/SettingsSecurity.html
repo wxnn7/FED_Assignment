@@ -3,32 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Payment Methods</title>
+  <title>Password & Security</title>
 
-  <!-- SHARED -->
-  <link rel="stylesheet" href="vendorBase.css">
-  <link rel="stylesheet" href="VendorNav.css">
-  <link rel="stylesheet" href="SettingsSideBar.css">
+  <!-- shared -->
+  <link rel="stylesheet" href="../css/vendorBase.css">
+  <link rel="stylesheet" href="../css/VendorNav.css">
+  <link rel="stylesheet" href="../css/SettingsSideBar.css">
 
-  <!-- PAGE (same css as normal payment page) -->
-  <link rel="stylesheet" href="SettingsPayment.css">
+  <!-- page -->
+  <link rel="stylesheet" href="../css/SettingsSecurity.css">
 
-  <!-- FONT -->
+  <!-- FONT (required by navbar.css) -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 </head>
 
 <body>
 <div class="page">
 
-  <!-- NAVBAR -->
+  <!-- NEW NAVBAR -->
   <nav class="navbar">
     <div class="nav-container">
 
+      <!-- Logo -->
       <a href="VendorHome.html" class="nav-logo">
         <span class="logo-icon">🍜</span>
         <span class="logo-text">Digital<br/>Hawker</span>
       </a>
 
+      <!-- Nav Links -->
       <ul class="nav-links">
         <li><a href="VendorHome.html">Home</a></li>
         <li><a href="VendorOrders.html">Order</a></li>
@@ -36,7 +38,10 @@
         <li><a href="VendorContact.html">Contact Us</a></li>
       </ul>
 
+      <!-- User Section -->
       <div class="nav-user">
+
+        <!-- Notifications -->
         <button class="btn-notification" aria-label="Notifications" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round">
@@ -46,6 +51,7 @@
           <span class="notification-badge">3</span>
         </button>
 
+        <!-- User Dropdown -->
         <div class="user-dropdown">
           <button class="user-toggle" type="button" aria-label="User menu">
             <div class="user-avatar">
@@ -62,6 +68,7 @@
             </svg>
           </button>
 
+          <!-- Dropdown Menu -->
           <div class="dropdown-menu">
             <a href="SettingsAccount.html" class="dropdown-item">My Profile</a>
             <a href="VendorOrderHistory.html" class="dropdown-item">Order History</a>
@@ -70,96 +77,75 @@
             <a href="VendorHome.html" class="dropdown-item dropdown-logout">Log Out</a>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </nav>
-
   <!-- SETTINGS LAYOUT -->
   <div class="settings-layout">
 
     <!-- SIDEBAR -->
     <aside class="settings-sidebar">
       <a class="side-item" href="SettingsAccount.html">
-        <img class="side-icon" src="images/profile.png" alt="assets/icons/user.png">
+        <img class="side-icon" href="../images/profile.png" alt="profile">
         <span>My Account</span>
       </a>
 
       <a class="side-item" href="SettingsNotifications.html">
-        <img class="side-icon" src="images/bell.png" alt="assets/icons/bell.png">
+        <img class="side-icon" href="../images/bell.png" alt="bell">
         <span>Notifications</span>
       </a>
 
       <a class="side-item" href="SettingsDietary.html">
-        <img class="side-icon" src="images/soup.png" alt="assets/icons/dietary.png">
+        <img class="side-icon" href="../images/soup.png" alt="soup">
         <span>Dietary<br>Restrictions</span>
       </a>
 
       <!-- ACTIVE LINK (keep this) -->
       <a class="side-item active" href="SettingsPayment.html">
-        <img class="side-icon" src="images/credit-card.png" alt="assets/icons/payment.png">
+        <img class="side-icon" href="../images/credit-card.png" alt="credit-card">
         <span>Payment</span>
       </a>
 
       <a class="side-item" href="SettingsLanguage.html">
-        <img class="side-icon" src="images/globe.png" alt="assets/icons/language.png">
+        <img class="side-icon" href="../images/globe.png" alt="globe">
         <span>Language</span>
       </a>
 
       <a class="side-item" href="SettingsSecurity.html">
-        <img class="side-icon" src="images/lock.png" alt="assets/icons/lock.png">
+        <img class="side-icon" href="../images/lock.png" alt="lock">
         <span>Password<br>&amp; Security</span>
       </a>
     </aside>
 
     <!-- CONTENT -->
-    <main class="settings-content pay">
-      <div class="pay-section">
-
-        <h1 class="pay-title">Edit Payment Methods</h1>
-
-        <div class="pay-head">
-          <div class="pay-subtitle">Stored payment methods</div>
-          <a class="pay-link" href="SettingsPayment.html">Done</a>
+    <main class="settings-content">
+      <div class="sec-card">
+        <div class="sec-header">
+          <div class="sec-shield">
+            <img href="../images/private-key.png" alt="private key icon" class="private-key">
+          </div>
+          <h1 class="sec-title">Password &amp; Security</h1>
         </div>
 
-        <div class="pay-list">
-          <div class="pay-row">
-            <div class="pay-left">
-              <img class="pay-ico" src="images/card (1).png" alt="">
-              <div class="pay-text">
-                <div class="pay-name">Visa xxxx 1234</div>
-              </div>
-            </div>
-            <button class="remove" type="button">Remove</button>
-          </div>
-
-          <div class="pay-row">
-            <div class="pay-left">
-              <img class="pay-ico" src="images/apple-pay.png" alt="">
-              <div class="pay-text">
-                <div class="pay-name">Apple Pay</div>
-              </div>
-            </div>
-            <button class="remove" type="button">Remove</button>
-          </div>
+        <div class="sec-row">
+          <span class="dot"></span>
+          <span class="sec-strong">Two-factor authentication is on.</span>
         </div>
 
-        <div class="pay-divider"></div>
+        <p class="sec-p">
+          Two-factor authentication adds an extra layer of security to ensure that
+          you're the only person who can access your account, even if someone knows your password.
+        </p>
 
-        <div class="pay-subtitle">Add payment method</div>
+        <p class="sec-p">
+          When logging in, a verification code will be sent to your email. This code then needs to be
+          entered in the app in order to complete the login.
+        </p>
 
-        <a class="pay-add" href="AddCard.html">
-          <div class="pay-left">
-            <img class="pay-ico" src="images/Creditcard02.png" alt="">
-            <div class="pay-name">Credit Card</div>
-          </div>
-          <div class="pay-plus">+</div>
-        </a>
-
+        <a class="sec-btn" href="ChangePW.html">Change password</a>
       </div>
     </main>
-
   </div>
 </div>
 
@@ -177,17 +163,6 @@
     dd?.classList.remove('open');
   });
 </script>
-
-<script>
-  // REMOVE PAYMENT METHOD
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('remove')) {
-      const row = e.target.closest('.pay-row');
-      row.remove();
-    }
-  });
-</script>
-
 
 </body>
 </html>
