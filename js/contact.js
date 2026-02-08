@@ -1,11 +1,12 @@
 /* ══════════════════════════════════════════════════════════
-   homepage.js – Digital Hawker
-   Handles navigation interactions for the homepage.
+   contact.js – Digital Hawker Contact Page
+   Handles navigation and form interactions.
 
    Responsibilities:
      1. User dropdown toggle (logged-in state)
      2. Mobile menu toggle
-     3. Close dropdowns when clicking outside
+     3. Contact form submission
+     4. Close dropdowns when clicking outside
    ══════════════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -45,7 +46,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ──────────────────────────────────────────────
-     3. CLOSE DROPDOWNS ON OUTSIDE CLICK
+     3. CONTACT FORM SUBMISSION
+     ────────────────────────────────────────────── */
+  const contactForm = document.getElementById('contactForm');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const textarea = contactForm.querySelector('.contact-textarea');
+      const message = textarea.value.trim();
+
+      if (message) {
+        // Show success message
+        alert('Thank you for contacting us! We will get back to you soon.');
+        
+        // Reset form
+        textarea.value = '';
+        
+        // In a real application, you would send this to your backend:
+        // sendContactMessage(message);
+      }
+    });
+  }
+
+  /* ──────────────────────────────────────────────
+     4. CLOSE DROPDOWNS ON OUTSIDE CLICK
      ────────────────────────────────────────────── */
   document.addEventListener('click', (e) => {
     // Close user dropdown
@@ -61,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ──────────────────────────────────────────────
-     4. CLOSE ON ESCAPE KEY
+     5. CLOSE ON ESCAPE KEY
      ────────────────────────────────────────────── */
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -80,35 +106,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const menu = document.createElement('div');
     menu.className = 'mobile-menu';
 
-    // Determine if logged in
-    const isLoggedIn = document.body.classList.contains('logged-in');
-    const homeLink = isLoggedIn ? 'index-logged-in.html' : 'index.html';
-
     menu.innerHTML = `
       <ul>
-        <li><a href="${homeLink}" class="active">Home</a></li>
+        <li><a href="index-logged-in.html">Home</a></li>
         <li><a href="order.html">Order</a></li>
         <li><a href="order-history.html">Order History</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contact.html" class="active">Contact Us</a></li>
       </ul>
-      ${!isLoggedIn ? `
-        <div class="mobile-auth">
-          <a href="login.html" class="btn-login">Log In</a>
-          <a href="signup.html" class="btn-signup">Sign Up</a>
-        </div>
-      ` : `
-        <div class="mobile-auth">
-          <a href="profile.html" class="btn-login">My Profile</a>
-          <a href="index.html" class="btn-signup">Log Out</a>
-        </div>
-      `}
+      <div class="mobile-auth">
+        <a href="profile.html" class="btn-login">My Profile</a>
+        <a href="index.html" class="btn-signup">Log Out</a>
+      </div>
     `;
 
     return menu;
   }
 
   /* ──────────────────────────────────────────────
-     5. NOTIFICATION BUTTON (demo interaction)
+     6. NOTIFICATION BUTTON (demo interaction)
      ────────────────────────────────────────────── */
   const notificationBtn = document.querySelector('.btn-notification');
 
