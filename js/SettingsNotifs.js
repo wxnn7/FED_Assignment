@@ -36,6 +36,8 @@ function badgeClassFromTag(tagText = "") {
 }
 
 function renderUrgent(notif) {
+  if (!urgentSection || !urgentTitleEl || !urgentSubEl) return;
+
   if (!notif) {
     urgentSection.style.display = "none";
     return;
@@ -49,11 +51,9 @@ function renderUrgent(notif) {
 function renderRecent(notifs) {
   if (!recentListEl) return;
 
-  // this is to remove the "Loading..." placeholder if it exists
   const placeholder = recentListEl.querySelector(".recent-empty");
   if (placeholder) placeholder.remove();
 
-  // remove all existing cards
   recentListEl.querySelectorAll(".ncard").forEach(el => el.remove());
 
   if (!notifs || notifs.length === 0) {
@@ -100,8 +100,7 @@ auth.onAuthStateChanged((user) => {
 
   const col = db.collection("notification");
 
-  // Load recent notifications (top 3)
-  col.orderBy("dateTime", "desc").limit(3).onSnapshot((snap) => {
+  col.orderBy("dateTime", "desc").onSnapshot((snap) => {
     const notifs = snap.docs.map(d => {
       const data = d.data();
       return {
@@ -114,14 +113,14 @@ auth.onAuthStateChanged((user) => {
 
     renderRecent(notifs);
 
-    // Simple badge count
+    // shows total notifs
     if (badgeEl) {
-      badgeEl.textContent = notifs.length;
-      badgeEl.style.display = notifs.length > 0 ? "inline-flex" : "none";
+      badgeEl.textContent = String(snap.size);
+      badgeEl.style.display = snap.size > 0 ? "inline-flex" : "none";
     }
   });
 
-  // Show latest notification as urgent
+  // this is to show latest notification as urgent at the top of notifs
   col.orderBy("dateTime", "desc").limit(1).onSnapshot((snap) => {
     if (snap.empty) {
       renderUrgent(null);
@@ -135,4 +134,7 @@ auth.onAuthStateChanged((user) => {
     });
   });
 });
+
+ 
+
 
