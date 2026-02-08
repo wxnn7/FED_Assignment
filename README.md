@@ -4,7 +4,7 @@ We are creating a Singapore Hawker Centre Management System with HTML as a Group
 
 **🌐 Live Demo:** https://digital-hawker-web.firebaseapp.com/
 **📦 Repository:** https://github.com/sheniseee/FED_Assignment
-**👤 Group Members:**  Wynn Lee, Jiliana Sky, Chloe, Shenise, Jovan Soo
+**👤 Group Members:**  Wynn Lee, Jiliana Sky, Chloe, Shenise Lim, Jovan Soo
 
 ---
 
@@ -36,9 +36,10 @@ We are creating a Singapore Hawker Centre Management System with HTML as a Group
 - Order placement and history tracking
 - User authentication (login/signup)
 
-### Vendor Features (Coming Soon)
+### Vendor Features 
 - Stall management dashboard
 - Menu and pricing management
+- Order Management
 - Order notifications and management
 - Sales analytics
 
@@ -64,7 +65,6 @@ We are creating a Singapore Hawker Centre Management System with HTML as a Group
 ## 🚧 Features to Add
 - Dark mode toggle
 - Advanced filtering options for customers
-- Real-time order tracking
 - Push notifications for vendors
 - Multi-language support (English/Chinese/Malay)
 - PWA functionality for offline access
@@ -536,7 +536,7 @@ FED_Assignment/
 - **Wynn Lee** – [Contribution area]
 - **Jiliana Sky** – [Contribution area]
 - **Chloe** – [Contribution area]
-- **Shenise** – [Contribution area]
+- **Shenise** – Vendor Menu Management, Vendor Order Management, Vendor Earnings
 - **Jovan Soo** – Inspector pages, Firebase integration, data architecture, CSS centralization
 
 ## Special Thanks
