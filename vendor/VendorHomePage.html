@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="../css/vendorBase.css" />
   <link rel="stylesheet" href="../css/VendorNav.css" />
-  <link rel="stylesheet" href="../css/navbar.css" />
+
   <link rel="stylesheet" href="../css/VendorHomePage.css" />
 
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -18,29 +18,29 @@
   <nav class="navbar">
     <div class="nav-container">
 
-      <a href="VendorHomePage.html" class="nav-logo">
+      <a href="VendorHome.html" class="nav-logo">
         <span class="logo-icon">🍜</span>
         <span class="logo-text">Digital<br/>Hawker</span>
       </a>
 
 
       <ul class="nav-links">
-        <li><a href="VendorHomePage.html" class="active">Home</a></li>
-        <li><a href="browse-stalls.html">Order</a></li>
-        <li><a href="orders-history.html">Order History</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="VendorHome.html" class="active">Home</a></li>
+        <li><a href="VendorOrders.html">Order</a></li>
+        <li><a href="VendorOrderHistory.html">Order History</a></li>
+        <li><a href="VendorContact.html">Contact Us</a></li>
       </ul>
 
      
       <div class="nav-user">
         <!-- Notifs -->
-        <button class="btn-notification" aria-label="Notifications" type="button" onclick="location.href='VendorNotification.html'">
+        <button class="btn-notification" aria-label="Notifications" type="button" onclick="location.href='VendorNotifs.html'">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
           </svg>
-          <span class="notification-badge">3</span>
+          <span class="notification-badge" id="notifBadge" style="display:none;">0</span>
         </button>
 
         <!-- User Dropdown -->
@@ -53,7 +53,7 @@
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
             </div>
-            <span class="user-name">Username101</span>
+            <span class="user-name">Vendor</span>
             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                  stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
@@ -85,8 +85,8 @@
         <a class="side-btn" href="orders.html">Orders</a>
         <a class="side-btn" href="menu.html">Menu</a>
         <a class="side-btn" href="earnings-overview.html">Earnings</a>
-        <a class="side-btn" href="VendorNotification.html">Notifications</a>
-        <a class="side-btn" href="#">Rental Agreement</a>
+        <a class="side-btn" href="VendorNotifs.html">Notifications</a>
+        <a class="side-btn" href="VendorRA.html">Rental Agreement</a>
       </aside>
 
       <div class="content">
@@ -110,20 +110,13 @@
           <div class="notif-title">Notifications</div>
 
           <div class="notif-card">
-            <div class="notif-head">Stall rent due in 3 days</div>
-            <div class="notif-sub">Rent Payment of SGD $1200 is due on 2 May 2025</div>
-            <div class="badge-row">
-              <span class="badge">Expiring soon</span>
+            <div id="homeNotifList">
+              <div class="notif-card" style="opacity:.7;">
+                <div class="notif-head">Loading...</div>
+                <div class="notif-sub">Fetching latest notifications</div>
+              </div>
             </div>
-            <div class="notif-time">Updated 20 minutes ago</div>
           </div>
-
-          <div class="notif-card">
-            <div class="notif-head">New order received</div>
-            <div class="notif-sub">Order #123445 has been placed by John Tan</div>
-          </div>
-        </div>
-      </div>
     </section>
   </main>
 
@@ -143,6 +136,17 @@
     dd?.classList.remove('open');
   });
 </script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<!-- Your Firebase connection -->
+<script src="../js/firebase.js"></script>
+
+<!-- Home page live notifs -->
+<script src="../js/VendorHomepageNotifs.js"></script>
 
 </body>
 </html>
