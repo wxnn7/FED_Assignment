@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
      1. USER DROPDOWN TOGGLE (logged-in only)
      ────────────────────────────────────────────── */
   const userDropdown = document.querySelector('.user-dropdown');
-  const userToggle   = document.querySelector('.user-toggle');
-
+  const userToggle = document.querySelector('.user-toggle');
+  const navbar = document.querySelector('.navbar');
+  const mobileMenu = document.querySelector('.mobile-menu') || document.querySelector('.mobile-nav-menu'); // Handling both references
   if (userDropdown && userToggle) {
     userToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -43,20 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ──────────────────────────────────────────────
-     5. TOGGLE MOBILE MENU
-     ────────────────────────────────────────────── */
-  const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-  const navbar = document.querySelector('.navbar');
-  const mobileMenu = createMobileMenu();
-
-  if (mobileNavToggle) {
-    mobileNavToggle.addEventListener('click', () => {
-      navbar.classList.toggle('menu-open');
-      mobileMenu.classList.toggle('open');
-    });
-  }
-
-  /* ──────────────────────────────────────────────
      HELPER: Create Mobile Menu
      ────────────────────────────────────────────── */
   function createMobileMenu() {
@@ -69,23 +56,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menu.innerHTML = `
       <ul>
-        <li><a href="${homeLink}" class="active">Home</a></li>
-        <li><a href="order.html">Order</a></li>
-        <li><a href="order-history.html">Order History</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="${isLoggedIn ? 'dashboard.html' : 'index.html'}" class="active">Home</a></li>
+        <li><a href="orders.html">Order</a></li>
+        <li><a href="incoming-orders.html">Order History</a></li>
+        <li><a href="${isLoggedIn ? 'contact-us.html' : 'contact-us.html'}">Contact Us</a></li>
       </ul>
+      ${!isLoggedIn ? `
+        <div class="mobile-auth">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="signup.html" class="btn-signup">Sign Up</a>
+        </div>
+      ` : `
+        <div class="mobile-auth">
+          <a href="profile.html" class="btn-login">My Profile</a>
+          <a href="index.html" class="btn-signup">Log Out</a>
+        </div>
+      `}
     `;
-    document.body.appendChild(menu);
+
     return menu;
   }
 
   /* ──────────────────────────────────────────────
-     6. NOTIFICATION BUTTON (demo interaction)
+     5. NOTIFICATION BUTTON (demo interaction)
      ────────────────────────────────────────────── */
   const notificationBtn = document.querySelector('.btn-notification');
 
   if (notificationBtn) {
     notificationBtn.addEventListener('click', () => {
+      window.location.href = 'notifications.html';
       // Demo: remove badge on click
       const badge = notificationBtn.querySelector('.notification-badge');
       if (badge) {

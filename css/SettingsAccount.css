@@ -1,0 +1,141 @@
+:root {
+  /* Colors */
+  --primary-color: #FFC107;
+  --primary-dark: #E5AC00;
+  --primary-light: #FFEFC2;
+  --nav-bg: #FFEFC2;
+  --bg-color: #F5F0E8;
+  --card-bg: #FFFFFF;
+  --sidebar-bg: #FFFFFF;
+  --text-dark: #1A1A2E;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+
+  /* Typography */
+  --font-primary: 'Outfit', sans-serif;
+
+  /* Spacing */
+  --navbar-height: 72px;
+  --sidebar-width: 230px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+
+
+.main-content {
+  flex: 1;
+  padding: 40px 60px;
+  background-color: #F9F6EA;
+}
+
+.page-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.form-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-sm);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.form-input {
+  padding: 14px 18px;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.btn {
+  padding: 12px 28px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-cancel {
+  color: var(--text-dark);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+.btn-cancel:hover {
+  background: #f5f5f5;
+}
+
+.btn-save {
+  color: var(--text-dark);
+  background: var(--primary-color);
+}
+
+.btn-save:hover {
+  background: var(--primary-dark);
+}

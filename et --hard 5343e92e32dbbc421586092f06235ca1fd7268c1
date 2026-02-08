@@ -1,0 +1,87 @@
+[33m5343e92[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain2[m[33m)[m Merge pull request #4 from sheniseee/chloe-vendor
+[33m38436fa[m[33m ([m[1;31mwFED-Assignment/chloe-vendor[m[33m, [m[1;31morigin/chloe-vendor[m[33m, [m[1;31mFED-Assignment/chloe-vendor[m[33m, [m[1;31mFED-Assignment'/chloe-vendor[m[33m)[m Merge branch 'main' of https://github.com/sheniseee/FED_Assignment into chloe-vendor
+[33md61711b[m Updated settingsNotifs
+[33mafc7ff8[m Updated vendorhomepage
+[33m17620f0[m Added a back to homepage button
+[33m572efc9[m Updated CSS to style back to homepage button
+[33m929a19e[m Merge pull request #2 from sheniseee/Login-/-sign-up
+[33mc96062d[m Merge branch 'main' of https://github.com/sheniseee/FED_Assignment
+[33m7d349b6[m Add account to project structure in README
+[33m2b86902[m Add mark-as-read notifications with unread badge count
+[33med39bdb[m Updated CSS to improve the layout and added css for the "Mark as read" function
+[33m948533b[m Added a button to link vendor notifs page back to homepage
+[33m80a616f[m[33m ([m[1;31mwFED-Assignment/Login-/-sign-up[m[33m, [m[1;31morigin/Login-/-sign-up[m[33m, [m[1;31mFED-Assignment/Login-/-sign-up[m[33m, [m[1;31mFED-Assignment'/Login-/-sign-up[m[33m)[m Merge branch 'main' into Login-/-sign-up
+[33mb3f7d45[m Updated css to make it more visually appealing
+[33mbde28f4[m Updated settingnotifs js
+[33m6c6f835[m Updated VendorHomepage
+[33m255a835[m Updated Vendorhomepage buttons
+[33mb50a916[m Added js to load notifications in real time from Firestore
+[33mc5bf0cd[m Load renewal status and date in rental agreement
+[33md9a0103[m Add renewal tracking fields to rental agreement
+[33mc4f9361[m Add renewal tracking fields to rental agreement
+[33mec00b0b[m Merge branch 'main' of https://github.com/sheniseee/FED_Assignment
+[33m041aafb[m Updated README File
+[33mf14ffb7[m Align notification logic with Firestore schema
+[33md0d6a97[m Enable editable rental agreement fields
+[33m709430c[m Updated firebase.js
+[33mfc1b697[m Added venderRA firebase js
+[33m81b3944[m Updated VendorRA css to match the changes made to VendorRA html
+[33m95df1b6[m Updated VendorRA
+[33mea06341[m Updated VendorNotifs
+[33m726bf09[m Updated Vendor HomePage
+[33m1891179[m Put files in folders
+[33m93bfe5a[m Update customer HTML file descriptions in README
+[33mac5fbef[m changed html folder name
+[33m8a23d44[m Merge pull request #1 from sheniseee/inspector
+[33m6a54f67[m Merge branch 'main' into inspector
+[33m0e4af7a[m Updated README
+[33m4ec8c58[m updated README
+[33me9f4b0d[m added html into folder
+[33me918b64[m changed the name of js and css
+[33m464c9b4[m Updated inspector-scheduling calendar width problems
+[33mecdf086[m Changed the name to Inspector Brown Added updateStallOptions()
+[33mb643157[m Updated css and js for homepage
+[33ma88d85a[m Merge branch 'main' of https://github.com/sheniseee/FED_Assignment
+[33me10fc8d[m Bump version to 1.0.2
+[33mdd566ca[m Update README with version and file changes
+[33m6a3ad66[m Update README with project details and features
+[33md721a19[m Bump version to 1.0.2
+[33m172abc9[m Update README with version and file changes
+[33m585911f[m Update README with project details and features
+[33m9967452[m Feat: Add settings page and other layout changes
+[33m0a8f610[m Added inspector.css and navbar.css fixed multiple bugs such as peak hours graph not changing and nav bar not working as intended shifted the majority of css to inspector.css
+[33m7e0de9f[m Updated Vendor notifs page to adapt to the JS update
+[33meca08a7[m Added settings notifs JS
+[33m62dc17d[m Updated css as changes were made to the pages dimensions
+[33m92b84fc[m added continue as guest
+[33m1577987[m Added firebase JS for Vendors Notifs page
+[33m61d9289[m implemented forget password email
+[33m2bdf52d[m changed the login and sign up google sign functionality & added pop up to choose role
+[33m70fe04c[m Style vendor notifs page
+[33m0517fd1[m Add vendor notification page
+[33m64a4ddf[m Add vendor shared css page
+[33ma03c56e[m Style Vendors homepage
+[33mf9e2b04[m Add Vendors homepage
+[33m90565c6[m Add shared base across all
+[33ma738b6b[m Style Vendor Rental Agreement Page
+[33m1942ec0[m Add Vendor Rental Agreement page
+[33mb0149bf[m Implemented firebase for sign up and login
+[33m7206622[m Integrate Firebase with scheduling page
+[33ma767ccd[m linked forget-password.html properly to css and js file
+[33m7368e2f[m adding a forget password page
+[33mb3b2d4b[m used eye img as src for password eye visibility
+[33me66b5a6[m removed old login css and js
+[33mc475f9c[m adding eye visibility into img folder
+[33m2196c2d[m separated login and sign up page and changed design
+[33m4ac4201[m adding food image and gmail icon
+[33mb472eff[m Added Firebase for Inspector
+[33m331b626[m added  javascript for login/sign up
+[33m486dd36[m Added Interactive Calendar - Month navigation arrows now work Added Interactive Calendar with highlights and sync inspection dates from localStorage with inspection scheduling page Added Clickable Breadcrumb - "Inspections" now links back to dashboard Added Consistent Dropdowns For Hawker Centres and Stalls Added Stall dropdown updates based on Hawker Centre selection
+[33m540bf44[m Added login page
+[33ma384030[m Added login page
+[33m9e3ecdc[m Added images folder, Fixed nav bar for Analytics and Reporting Sections,  Fixed Inspection Grade timeline bar.
+[33m90e2ef7[m changed the name of css file
+[33m5df2514[m Renamed index.css to style.css and Added inspector file with html
+[33mbab68ff[m added js folder
+[33m87c5a07[m added homepage with css and js folders
+[33m12fbdde[m Initial commit

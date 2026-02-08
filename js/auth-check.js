@@ -1,16 +1,19 @@
-// Authentication check for vendor pages
-// This ensures users are logged in before accessing vendor-only pages
+/**
+ * auth-check.js
+ * Simulates a "firewall" by checking if the user is logged in as a Vendor.
+ * Should be included in the <head> of all /vendor/ pages.
+ */
+(function () {
+    // Check if we are in a browser environment
+    if (typeof window === 'undefined') return;
 
-(function() {
-    // For now, this is a placeholder
-    // In production, you would check if user is authenticated
-    console.log('Auth check: OK');
-    
-    // Example auth check (currently disabled):
-    /*
-    const isLoggedIn = localStorage.getItem('vendorLoggedIn');
-    if (!isLoggedIn) {
-        window.location.href = '/login.html';
+    const userType = sessionStorage.getItem('userType');
+
+    // BYPASS LOGIN CHECK for development/request
+    // Instead of redirecting, we ensure the user is "logged in" as a vendor automatically.
+
+    if (userType !== 'vendor') {
+        console.log('Auto-logging in as Vendor (Login Feature Disabled)');
+        sessionStorage.setItem('userType', 'vendor');
     }
-    */
 })();
