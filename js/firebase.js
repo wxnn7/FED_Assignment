@@ -19,6 +19,9 @@ firebase.initializeApp(firebaseConfig);
 // Initialize Services
 const db = firebase.firestore();
 const auth = firebase.auth();
+auth.signInAnonymously()
+  .then(() => console.log("Signed in anonymously:", auth.currentUser?.uid))
+  .catch((e) => console.error("Anonymous sign-in failed:", e.code, e.message));
 
 // Enable offline persistence (optional but recommended)
 db.enablePersistence()
