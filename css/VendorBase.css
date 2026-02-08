@@ -21,11 +21,3 @@ body{
   background: #222;
 }
 
-.page{
-  width: min(1200px, 92vw);
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 2px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-}
