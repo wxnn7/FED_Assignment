@@ -580,10 +580,14 @@ async function signInWithGoogle(role) {
 function redirectUserByRole(role) {
   console.log('redirectUserByRole called with role:', role);
   
-  if (role === 'customer' || role === 'stall-owner') {
+  if (role === 'customer') {
     console.log('Redirecting to index.html');
-    window.location.href = 'index.html';
-  } else if (role === 'nea-officer') {
+    window.location.href = '../index.html';
+  }
+  else if (role === 'stall-owner') {
+    window.location.href = '../Vendor/VendorHomepage.html';
+  }
+   else if (role === 'nea-officer') {
     console.log('Redirecting to inspector/inspector-dashboard.html');
     window.location.href = '../inspector/inspector-dashboard.html';
   } else {
