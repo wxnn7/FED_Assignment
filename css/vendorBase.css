@@ -20,12 +20,3 @@ body{
   color: var(--text);
   background: #222;
 }
-
-.page{
-  width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-  background: #fff;
-  border-radius: 0;
-  overflow-x: hidden
-}
