@@ -584,8 +584,8 @@ function redirectUserByRole(role) {
     console.log('Redirecting to index.html');
     window.location.href = 'index.html';
   } else if (role === 'nea-officer') {
-    console.log('Redirecting to nea-officer.html');
-    window.location.href = 'nea-officer.html';
+    console.log('Redirecting to inspector/inspector-dashboard.html');
+    window.location.href = '../inspector/inspector-dashboard.html';
   } else {
     console.error('Unknown role:', role);
     alert('Error: Invalid user role. Please contact support.');
