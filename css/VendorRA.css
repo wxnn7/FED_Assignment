@@ -118,3 +118,22 @@
   .paper{ padding: 28px 22px; }
   .doc-title{ font-size: 22px; }
 }
+
+.back-home {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 16px;
+}
+
+.back-btn {
+  padding: 12px 22px;
+  background: #FFC94D;
+  color: #111;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-btn:hover {
+  background: #ffbb1f;
+}
