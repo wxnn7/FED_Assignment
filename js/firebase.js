@@ -1,14 +1,13 @@
 
-// ========================================
-// Firebase Configuration for Digital Hawker
-// ========================================
+// Firebase config (Digital Hawker)
 
-// Firebase Configuration
+console.log("firebase.js loaded");
+
 const firebaseConfig = {
   apiKey: "AIzaSyBtB5-SjjekUXiAl80c5AQ7cx2VMrXusJw",
   authDomain: "digital-hawker-web.firebaseapp.com",
   projectId: "digital-hawker-web",
-  storageBucket: "digital-hawker-web.firebasestorage.app",
+  storageBucket: "digital-hawker-web.appspot.com",
   messagingSenderId: "135976498248",
   appId: "1:135976498248:web:0209fb615ccba6810d547d",
   measurementId: "G-L04BJHVL0P"
