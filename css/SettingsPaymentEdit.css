@@ -1,0 +1,127 @@
+/* SettingsPayment.css (use for BOTH Payment + Edit Payment pages) */
+
+.pay{
+  padding-top: 22px;
+}
+
+/* centered column */
+.pay-section{
+  width: min(720px, 92%);
+  margin: 0 auto;
+}
+
+/* big centered title */
+.pay-title{
+  text-align: center;
+  font-size: 34px;
+  font-weight: 900;
+  margin: 10px 0 26px;
+}
+
+/* row: subtitle (left) + Edit/Done (right) */
+.pay-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin: 0 0 14px;
+}
+
+/* section headings */
+.pay-subtitle{
+  font-size: 22px;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 16px;
+}
+
+/* Edit / Done link */
+.pay-link{
+  font-size: 18px;
+  font-weight: 800;
+  color:#111;
+  text-decoration:none;
+}
+.pay-link:hover{ text-decoration: underline; }
+
+/* list spacing */  
+.pay-list{
+  display:flex;
+  flex-direction:column;
+  gap: 18px;
+}
+
+/* cards */
+.pay-row,
+.pay-add{
+  background:#fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 14px;
+}
+
+/* left content */
+.pay-left{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* icons */
+.pay-ico{
+  width: 34px;
+  height: 24px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+/* text */
+.pay-name{
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.pay-meta{
+  font-size: 13px;
+  color:#888;
+  margin-top: 4px;
+}
+
+/* divider line */
+.pay-divider{
+  height: 2px;
+  background: rgba(255, 196, 74, 0.55);
+  margin: 30px 0;
+  border-radius: 999px;
+}
+
+/* add row */
+.pay-add{
+  text-decoration:none;
+  color: inherit;
+}
+.pay-add:hover{ filter: brightness(0.99); }
+
+.pay-plus{
+  font-size: 28px;
+  font-weight: 900;
+  opacity: 0.85;
+  line-height: 1;
+}
+
+/* edit remove button (red + underlined like your target) */
+.remove{
+  border:none;
+  background: transparent;
+  color:#ff2a2a;
+  font-size: 14px;
+  font-weight: 700;
+  cursor:pointer;
+  text-decoration: underline;
+}
+.remove:hover{ filter: brightness(0.95); }
