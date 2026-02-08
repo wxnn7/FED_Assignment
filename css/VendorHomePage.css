@@ -17,14 +17,13 @@
   padding: 28px 42px 44px;
 }
 
-/* lower layout */
+
 .lower{
   display:grid;
   grid-template-columns: 320px 1fr;
   gap: 28px;
 }
 
-/* to control side buttons */
 .side{
   padding-top: 8px;
   display:flex;
@@ -163,18 +162,17 @@
   .lower{ grid-template-columns: 1fr; }
   .side-btn{ width: 100%; }
 }
-/* === YELLOW BACK PANEL (homepage only) === */
+
 .notif > .notif-card{
-  background: #F7E7B8;        /* yellow BACK layer */
+  background: #F7E7B8;       
   border-radius: 16px;
   padding: 16px;
   box-shadow: none;
   border: none;
 }
 
-/* === ACTUAL NOTIFICATION CARDS === */
 #homeNotifList .notif-card{
-  background: #fff;           /* keep cards white */
+  background: #fff;           
   border-radius: 14px;
   padding: 18px 20px;
   box-shadow: 0 6px 12px rgba(0,0,0,0.16);
