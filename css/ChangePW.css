@@ -1,0 +1,120 @@
+
+.cp-wrap{
+  background: #FBF8EF;
+  min-height: 100vh;
+  padding: 28px 24px 40px;
+  position: relative;              /* IMPORTANT for back button positioning */
+}
+
+/* Back button */
+.cp-back{
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  text-decoration: none;
+  color: #111;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.back-icon{
+  width: 22px;                     /* make it match screenshot more */
+  height: 22px;
+  object-fit: contain;
+}
+
+/* Title */
+.cp-title{
+  margin: 8px 0 26px;
+  text-align: center;
+  font-size: 26px;                  /* slightly bigger like screenshot */
+  font-weight: 800;
+  letter-spacing: normal;           /* prevent weird spacing */
+}
+
+/* Form container */
+.cp-form{
+  width: min(520px, 92%);
+  margin: 0 auto;
+
+  /* push content down a bit so it sits nicer (less empty space above/below) */
+  padding-top: 10px;
+}
+
+/* Labels */
+.cp-label{
+  display: block;
+  font-size: 13px;
+  color: #777;
+  margin: 16px 0 8px;
+}
+
+/* Input wrapper */
+.cp-field{
+  position: relative;
+}
+
+/* Input */
+.cp-field input{
+  width: 100%;
+  height: 54px;
+  border-radius: 12px;              /* rounder like screenshot */
+  border: 1px solid rgba(0,0,0,0.10);
+  background: #ECECEC;
+  padding: 0 52px 0 18px;
+  outline: none;
+
+  font-size: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.10); /* softer */
+}
+
+.cp-field input::placeholder{
+  color: #8a8a8a;
+  font-weight: 600;
+}
+
+/* Eye button */
+.eye-btn{
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.9;
+}
+
+.eye-icon{
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+}
+
+/* Rules text */
+.cp-rules{
+  margin: 14px 0 22px;
+  font-size: 13px;
+  color: #8a8a8a;
+  line-height: 1.55;
+}
+
+/* Save button */
+.cp-save{
+  width: 100%;
+  height: 56px;
+  border-radius: 12px;               /* slightly rounder */
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #F6EFD9;
+
+  box-shadow: 0 6px 14px rgba(0,0,0,0.10); /* less harsh */
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.cp-save:hover{ filter: brightness(0.99); }
