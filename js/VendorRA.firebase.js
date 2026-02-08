@@ -14,6 +14,10 @@ function collectAgreement() {
     tradeType: txt("tradeType"),
     startDate: txt("startDate"),
     endDate: txt("endDate"),
+
+    renewalStatus: txt("renewalStatus"),
+    renewalDate: txt("renewalDate"),
+
     monthlyRent: txt("monthlyRent"),
     deposit: txt("deposit"),
     operatorSig: txt("operatorSig"),
@@ -23,6 +27,7 @@ function collectAgreement() {
   };
 }
 
+
 function fillAgreement(data) {
   if (!data) return;
   set("operatorName", data.operatorName);
@@ -31,6 +36,8 @@ function fillAgreement(data) {
   set("tradeType", data.tradeType);
   set("startDate", data.startDate);
   set("endDate", data.endDate);
+  set("renewalStatus", data.renewalStatus);
+  set("renewalDate", data.renewalDate);
   set("monthlyRent", data.monthlyRent);
   set("deposit", data.deposit);
   set("operatorSig", data.operatorSig);
