@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us – Digital Hawker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/contact.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      
+      <!-- Logo -->
+      <a href="customer-index.html" class="nav-logo">
+        <span class="logo-icon">🍜</span>
+        <span class="logo-text">Digital<br/>Hawker</span>
+      </a>
+
+      <!-- Nav Links -->
+      <ul class="nav-links">
+        <li><a href="customer-index.html">Home</a></li>
+        <li><a href="customer/browse-stalls.html">Order</a></li>
+        <li><a href="customer/order-history.html">Order History</a></li>
+        <li><a href="contact.html" class="active">Contact Us</a></li>
+      </ul>
+
+      <!-- User Section (Logged In State) -->
+      <div class="nav-user">
+        <button class="btn-notification" aria-label="Notifications" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="notification-badge">3</span>
+        </button>
+
+        <div class="user-dropdown">
+          <button class="user-toggle" type="button" aria-label="User menu">
+            <div class="user-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <span class="user-name">Username101</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <div class="dropdown-menu">
+            <a href="Settings/SettingsAccount.html" class="dropdown-item">My Profile</a>
+            <a href="customer/order-history.html" class="dropdown-item">Order History</a>
+            <a href="Settings/SettingsAccount.html" class="dropdown-item">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a href="account/login.html" class="dropdown-item dropdown-logout">Log Out</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Contact Section -->
+  <main class="contact-section">
+    <div class="contact-container">
+      
+      <h1 class="contact-title">Contact Us</h1>
+      <p class="contact-subtitle">We would like to hear from you and assist you</p>
+      
+      <p class="contact-intro">
+        If you have any inquiries or just want to say hi, please use the contact form below!
+      </p>
+
+      <form class="contact-form" id="contactForm">
+        <textarea 
+          class="contact-textarea" 
+          placeholder="Type you message here..."
+          rows="8"
+          required
+        ></textarea>
+        
+        <button type="submit" class="btn-submit">Submit</button>
+      </form>
+
+    </div>
+  </main>
+
+  <script src="js/contact.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Hawker – Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+<!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">🍜</span>
+        <span class="logo-text">Digital<br/>Hawker</span>
+      </a>
+
+      <!-- Nav Links -->
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="order.html">Order</a></li>
+        <li><a href="order-history.html">Order History</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+
+      <!-- Auth Buttons (Guest State) -->
+      <div class="nav-auth">
+        <a href="account/login.html" class="btn-login">Log In</a>
+        <a href="account/signup.html" class="btn-signup">Sign Up</a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <main class="hero">
+    <div class="hero-container">
+      
+      <!-- Left Content -->
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Your Digital<br/><span>Hawker</span>
+        </h1>
+        <p class="hero-description">
+          From spicy noodles to sweet treats, our hawker stalls bring you the best of local cuisine. 
+          Discover authentic flavors delivered right to your doorstep.
+        </p>
+        <a href="order.html" class="btn-order">Order Now</a>
+        
+        <!-- Statistics -->
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Hawker Stalls</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">10k+</span>
+            <span class="stat-label">Happy Customers</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">30min</span>
+            <span class="stat-label">Avg Delivery</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Images -->
+      <div class="hero-images">
+        <div class="image-grid">
+          <div class="image-card image-1">
+            <img 
+              src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=500&q=80" 
+              alt="Hainanese chicken rice"
+              loading="lazy"
+            />
+          </div>
+          <div class="image-card image-2">
+            <img 
+              src="https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=500&q=80" 
+              alt="Spicy laksa noodle soup"
+              loading="lazy"
+            />
+          </div>
+          <div class="image-card image-3">
+            <img 
+              src="https://images.unsplash.com/photo-1529563021893-cc83c992d75d?auto=format&fit=crop&w=500&q=80" 
+              alt="Grilled satay skewers"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FEATURED SECTION -->
+  <section class="featured">
+    <div class="featured-container">
+      <h2 class="featured-title">Why Choose Digital Hawker?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🏪</span>
+          <h3>Authentic Stalls</h3>
+          <p>Partnered with beloved local hawkers serving generations of customers.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🚀</span>
+          <h3>Fast Delivery</h3>
+          <p>Hot food delivered to you in 30 minutes or less, guaranteed fresh.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">💰</span>
+          <h3>Hawker Prices</h3>
+          <p>Same affordable prices as eating at the hawker centre. No markup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Footer --> 
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="logo-icon">🍜</span>
+        <span>Digital Hawker</span>
+      </div>
+      <p class="footer-copy">&copy; 2025 Digital Hawker. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script src="js/index.js"></script>
+</body>
+</html>
