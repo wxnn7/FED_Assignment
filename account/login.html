@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Hawker – Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/account.css" />
+</head>
+<body class="page-login">
+
+<div class="page">
+
+  <!--Form area-->
+  <section class="panel-left">
+    <div class="form-box">
+
+      <h1 class="brand">Digital <span>Hawker</span></h1>
+      <p class="brand-sub">Login to your account</p>
+
+      <label for="email">Email Address</label>
+      <div class="input-wrap">
+        <input type="email" id="email" placeholder="Enter your email" autocomplete="email" />
+      </div>
+
+      <label for="password">Password</label>
+      <div class="input-wrap">
+        <input type="password" id="password" placeholder="••••••••••••" autocomplete="current-password" />
+        <button type="button" class="toggle-password">
+          <img src="../images/eye.svg" class="eye-icon">
+          <img src="../images/eye-off.svg" display="none" class="eye-off-icon" />
+        </button>
+      </div>
+
+      <div class="row-options">
+        <label class="remember">
+          <input type="checkbox" /> Remember me
+        </label>
+        <a href="forgot-password.html" class="forgot">Forget Password?</a>
+      </div>
+
+      <button class="btn-primary" type="button" id="login-btn">Log In</button>
+
+      <div class="divider"><span>Or</span></div>
+
+      <button class="btn-google" type="button" id="google-login-btn">
+        <img src="../images/gmail.svg" alt="Google logo" />
+        Sign in with Google
+      </button>
+
+      <p class="bottom-link">Don't have an account? <a href="signup.html">Sign Up</a></p>
+      <div class="guest">
+          <a href="signout-index.html" class="guest-link">Continue as guest</a>
+      </div>
+      
+
+    </div>
+  </section>
+
+  <!-- right panel -->
+  <section class="panel-right">
+    <div class="hero-wrap">
+      <img
+        src="../images/noodles.avif"
+        alt="Delicious local cuisine"
+      />
+      <div class="hero-overlay"></div>
+      <p class="hero-text">Bringing the best of<br/>local cuisine online.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- Role Selection Modal (for Google Sign-In) -->
+<div id="role-modal" class="modal-overlay" style="display: none;">
+  <div class="modal-content">
+    <h2>Select Your Account Type</h2>
+    <p>Please choose how you'll be using Digital Hawker</p>
+    
+    <div class="modal-pills">
+      <label class="pill">
+        <input type="radio" name="modal-account-type" value="customer" checked />
+        <span class="pill-label">
+          <span class="pill-icon">🛒</span> Customer
+        </span>
+      </label>
+
+      <label class="pill">
+        <input type="radio" name="modal-account-type" value="stall-owner" />
+        <span class="pill-label">
+          <span class="pill-icon">🍜</span> Stall Owner
+        </span>
+      </label>
+
+      <label class="pill">
+        <input type="radio" name="modal-account-type" value="nea-officer" />
+        <span class="pill-label">
+          <span class="pill-icon">📋</span> NEA Officer
+        </span>
+      </label>
+    </div>
+
+    <button class="btn-primary" id="confirm-role-btn">Continue</button>
+  </div>
+</div>
+
+<!-- Firebase SDK (compat version to match your firebase-config.js) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<!-- Your scripts -->
+<script src="../js/firebase-config.js"></script>
+<script src="../js/account.js"></script>
+
+</body>
+</html>
