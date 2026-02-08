@@ -135,7 +135,11 @@ function renderRecent(notifs) {
 }
 
 auth.onAuthStateChanged((user) => {
-  if (!user) return;
+  if (!user) {
+  console.warn("No user yet—waiting for anonymous auth...");
+  return;
+}
+
 
   const col = db.collection("notification");
 
