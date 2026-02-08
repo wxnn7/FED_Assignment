@@ -3,7 +3,7 @@
 We are creating a Singapore Hawker Centre Management System with HTML as a Group for Customers, Store Owners and Nea Officers
 
 **🌐 Live Demo:** https://digital-hawker-web.firebaseapp.com/
-**📦 Repository:** https://github.com/sheniseee/FED_Assignment
+**📦 Repository:** https://github.com/wxnn7/FED_Assignment
 **👤 Group Members:**  Wynn Lee, Jiliana Sky, Chloe, Shenise Lim, Jovan Soo
 
 ---
@@ -386,7 +386,7 @@ firebase deploy --only hosting
 ### Steps
 ```bash
 # Clone repository
-git clone https://github.com/sheniseee/FED_Assignment.git
+git clone https://github.com/wxnn7/FED_Assignment.git
 
 # Navigate to project
 cd FED_Assignment
@@ -469,59 +469,166 @@ This project utilized AI assistance (Claude by Anthropic) for:
 ```
 FED_Assignment/
 │
-├── css/
-│   ├── style.css              # Group's shared stylesheet
-│   ├── inspector.css          # Centralized inspector styles
-│   └── navbar.css             # Navbar component styles
-│
-├── js/
-│   ├── firebase-config.js     # Firebase initialization & helpers
-│   ├── hawker-data.js         # 48 stalls with real names
-│   ├── all-48-stalls-complete-data.js    # Complete sales & satisfaction
-│   └── complete-inspection-history.js     # Inspection history data
-│
-├── inspector/
-│   ├── inspector-dashboard.html      # Inspector home
-│   ├── inspector-scheduling.html     # Calendar & scheduling
-│   ├── inspector-analytics.html      # Analytics menu
-│   ├── inspector-sales.html          # Sales analytics
-│   ├── inspector-satisfaction.html   # Customer satisfaction
-│   ├── inspector-overview.html       # Stall overview
-│   └── logging-form.html            # Inspection logging
-│
-├── customer/
-│   ├── index.html                  # Customer homepage
-│   ├── browse-stalls.html          # Browse stalls
-│   ├── stall-menu.html             # View menu items in stall
-│   ├── order-confirmation.html     # Confirms order and payment success
-│   ├── order-summary.html          # View customer's orders from all stores
-|   ├── order-preparation.html      # Progress of order
-|   ├── order-completion.html       # Feedback and Rating
-│   └── order-history.html          # Order tracking
-│
-├── vendor/
-│   └── vendor-css
-│   └── vendor-html
-│   └── vendor-images
-│   └── vendor-js
-|
-├── account/
-|   └── forgot-password.html
-|   └── login.html
-|   └── singup.html
-│
-├── assets/
-│   ├── images/               # Product images, icons
-│   └── wireframes/          # Design mockups
-│
-├── firebase.json             # Firebase hosting config
-├── firestore.rules           # Database security rules
 ├── .github/
 │   └── workflows/
-│       └── firebase-hosting-merge.yml    # Auto-deploy
+│       └── firebase-hosting-merge.yml    # Auto-deploy to Firebase
 │
-├── README.md
-└── index.html               # Landing page
+├── .firebase/                             # Firebase cache (gitignored)
+├── .vscode/                               # VS Code settings
+│
+├── account/                               # User Authentication Pages
+│   ├── login.html                         # User login
+│   ├── signup.html                        # User registration
+│   └── forgot-password.html               # Password recovery
+│
+├── css/                                   # Stylesheets
+│   ├── style.css                          # Main shared stylesheet
+│   ├── inspector.css                      # Inspector pages styling
+│   ├── navbar.css                         # Navigation bar
+│   ├── variables.css                      # CSS variables
+│   │
+│   ├── index.css                          # Landing page
+│   ├── browse-stalls.css                  # Browse stalls page
+│   ├── stall-menu.css                     # Stall menu page
+│   ├── order-customisation.css            # Order customization
+│   ├── order-confirmation.css             # Order confirmation
+│   ├── order-summary.css                  # Order summary
+│   ├── order-preparation.css              # Order tracking
+│   ├── order-completion.css               # Order feedback
+│   ├── order-history.css                  # Order history
+│   ├── contact.css                        # Contact page
+│   ├── account.css                        # Login/signup styling
+│   │
+│   ├── VendorBase.css                     # Vendor base styles
+│   ├── VendorNav.css                      # Vendor navigation
+│   ├── VendorHomePage.css                 # Vendor dashboard
+│   ├── VendorNotification.css             # Vendor notifications
+│   ├── VendorNotifs.css                   # Notification styles
+│   ├── VendorRA.css                       # Revenue analytics
+│   │
+│   ├── SettingsSideBar.css                # Settings sidebar
+│   ├── SettingsAccount.css                # Account settings
+│   ├── SettingsSecurity.css               # Security settings
+│   ├── SettingsPayment.css                # Payment settings
+│   ├── SettingsPaymentEdit.css            # Edit payment methods
+│   ├── SettingsNotifications.css          # Notification preferences
+│   ├── SettingsDietary.css                # Dietary preferences
+│   ├── SettingsLanguage.css               # Language settings
+│   ├── AddCard.css                        # Add payment card
+│   └── ChangePW.css                       # Change password
+│
+├── customer/                              # Customer Pages
+│   ├── browse-stalls.html                 # Browse hawker stalls
+│   ├── stall-menu.html                    # View stall menu & items
+│   ├── order-customisation.html           # Customize order
+│   ├── order-confirmation.html            # Confirm order & payment
+│   ├── order-summary.html                 # View all orders
+│   ├── order-preparation.html             # Track order progress
+│   ├── order-completion.html              # Rate & provide feedback
+│   └── order-history.html                 # Past orders
+│
+├── images/                                # Image Assets
+│   ├── (product images)
+│   ├── (hawker centre photos)
+│   └── (UI icons)
+│
+├── inspector/                             # Inspector Pages (NEA Officers)
+│   ├── inspector-dashboard.html           # Inspector home dashboard
+│   ├── inspector-scheduling.html          # Calendar & scheduling
+│   ├── inspector-analytics.html           # Analytics menu
+│   ├── inspector-sales.html               # Sales analytics
+│   ├── inspector-satisfaction.html        # Customer satisfaction
+│   ├── inspector-overview.html            # Stall overview
+│   └── logging-form.html                  # Inspection logging
+│
+├── js/                                    # JavaScript Files
+│   ├── firebase-config.js                 # Firebase initialization
+│   ├── hawker-data.js                     # 48 stalls with real names
+│   ├── all-48-stalls-complete-data.js     # Complete sales & satisfaction
+│   ├── complete-inspection-history.js     # Inspection history (48 stalls)
+│   ├── sample-analytics-data.js           # Sample data (legacy)
+│   ├── add-remaining-hawker-data.js       # Additional hawker data
+│   │
+│   ├── auth-service.js                    # Authentication service
+│   ├── auth-check.js                      # Auth verification
+│   ├── firebase.js                        # Firebase helpers
+│   ├── firebase-config2.js                # Alternative Firebase config
+│   │
+│   ├── index.js                           # Landing page logic
+│   ├── navbar.js                          # Navigation logic
+│   ├── browse-stalls.js                   # Browse stalls functionality
+│   ├── stall-menu.js                      # Stall menu interactions
+│   ├── order-customisation.js             # Order customization logic
+│   ├── order-confirmation.js              # Order confirmation
+│   ├── order-summary.js                   # Order summary display
+│   ├── order-preparation.js               # Order tracking
+│   ├── order-completion.js                # Feedback & rating
+│   ├── order-history.js                   # Order history display
+│   ├── contact.js                         # Contact form
+│   ├── account.js                         # Login/signup logic
+│   ├── responsive.js                      # Responsive utilities
+│   ├── image-helper.js                    # Image utilities
+│   │
+│   ├── seed-menu.js                       # Menu data seeding
+│   ├── VendorHomepageNotifs.js            # Vendor notifications
+│   ├── VendorRA.firebase.js               # Vendor revenue analytics
+│   ├── SettingsNotifs.js                  # Settings notifications
+│   ├── SettingsNotifications.js           # Notification preferences
+│   ├── SettingsDietary.js                 # Dietary preferences
+│   ├── SettingsLanguage.js                # Language settings
+│   ├── PaymentMethods.js                  # Payment management
+│   ├── AddCard.js                         # Add payment card
+│   └── ChangePW.js                        # Change password
+│
+├── public/                                # Firebase hosting public folder
+│   ├── index.html                         # Public landing page
+│   └── 404.html                           # 404 error page
+│
+├── Settings/                              # User Settings Pages
+│   ├── SettingsAccount.html               # Account settings
+│   ├── SettingsSecurity.html              # Security settings
+│   ├── SettingsPayment.html               # Payment methods
+│   ├── SettingsPaymentEdit.html           # Edit payment
+│   ├── SettingsNotifications.html         # Notification preferences
+│   ├── SettingsDietary.html               # Dietary preferences
+│   ├── SettingsLanguage.html              # Language selection
+│   ├── AddCard.html                       # Add payment card
+│   └── ChangePW.html                      # Change password
+│
+├── Vendor/                                # Vendor Pages (Stall Owners)
+│   ├── VendorHomePage.html                # Vendor dashboard
+│   ├── VendorNotification.html            # Notifications center
+│   ├── VendorNotifs.html                  # Notification list
+│   ├── VendorRA.html                      # Revenue analytics
+│   ├── earnings-overview.html             # Earnings dashboard
+│   ├── earnings-overview-backup.html      # Backup version
+│   │
+│   ├── menu.html                          # Menu overview
+│   ├── menu-management.html               # Manage menu items
+│   ├── menu-item.html                     # Individual item management
+│   ├── menu-visual.html                   # Visual menu display
+│   │
+│   ├── orders.html                        # Orders overview
+│   ├── incoming-orders.html               # New incoming orders
+│   ├── order-tracking.html                # Track order status
+│   ├── orders-history.html                # Past orders
+│   ├── track-table.html                   # Order tracking table
+│   │
+│   ├── browse-stalls.html                 # Browse other stalls
+│   ├── contact.html                       # Contact support
+│   └── seed-data.html                     # Seed data utility
+│
+├── contact.html                           # Contact page
+├── customer-index.html                    # Customer homepage
+├── index.html                             # Main landing page
+│
+├── firebase.json                          # Firebase hosting config
+├── firestore.rules                        # Database security rules
+├── firestore.indexes.json                 # Firestore indexes
+├── .firebaserc                            # Firebase project config
+├── .gitignore                             # Git ignore rules
+│
+└── README.md                              # Project documentation
 ```
 
 ---
@@ -593,11 +700,11 @@ This project is created for educational purposes as part of FED Assignment.
 # 📞 Contact
 
 For questions or feedback about this project:
-- **Repository:** https://github.com/sheniseee/FED_Assignment
-- **Issues:** https://github.com/sheniseee/FED_Assignment/issues
+- **Repository:** https://github.com/wxnn7/FED_Assignment
+- **Issues:** https://github.com/wxnn7/FED_Assignment/issues
 
 ---
 
 **Last Updated:** February 7, 2026  
-**Version:** 1.0.2  
+**Version:** 1.1.0 
 **Status:** ✅ Inspector Features Complete | 🚧 Customer/Vendor Features In Progress
