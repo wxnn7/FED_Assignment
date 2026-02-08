@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earnings Overview - Digital Hawker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/vendor.css?v=2">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <!-- DataTables CSS -->
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_orange.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="../js/auth-check.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+
+        /* Dashboard Styles Reuse */
+        .dashboard-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            border-radius: 12px;
+            background: var(--primary-color);
+            color: var(--text-dark);
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            justify-content: center;
+        }
+
+        .dashboard-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Analytics Specific Styles */
+        .analytics-nav .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #FFC107;
+            color: black;
+            font-weight: 600;
+            padding: 10px 24px;
+            cursor: pointer;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .analytics-nav .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .analytics-nav .btn.active {
+            background: #FFE082;
+            color: black;
+            font-weight: 700;
+            border: 2px solid #FFC107;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Edit Button Styles */
+        .btn-edit {
+            background: #FFC107;
+            color: black;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-edit:hover {
+            background: #FFB300;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        /* Responsive Layout */
+        .analytics-layout {
+            display: flex;
+            gap: 24px;
+            flex-direction: column;
+        }
+    </style>
+
+    <script>
+        function toggleMobileNav() {
+            const container = document.getElementById('navLinksContainer');
+            container.classList.toggle('show');
+        }
+    </script>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+        <nav class="navbar">
+        <div class="nav-container">
+
+            <!-- Logo -->
+            <a href="VendorHomePage.html" class="nav-logo">
+                <span class="logo-icon">🍜</span>
+                <span class="logo-text">Digital<br />Hawker</span>
+            </a>
+
+            <!-- Nav Links -->
+            <ul class="nav-links">
+                <li><a href="VendorHomePage.html">Home</a></li>
+                <li><a href="browse-stalls.html" class="active">Order</a></li>
+                <li><a href="orders-history.html">Order History</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-nav-toggle" aria-label="Mobile Menu">
+                <ion-icon name="menu"></ion-icon> Menu
+            </button>
+
+            <!-- User Section -->
+            <div class="nav-user">
+                <button class="btn-notification" aria-label="Notifications"
+                    onclick="location.href='VendorNotification.html'">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+
+                <!-- User Dropdown -->
+                <div class="user-dropdown">
+                    <button class="user-toggle" aria-label="User menu">
+                        <div class="user-avatar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <span class="user-name">Vendor</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="settings.html" class="dropdown-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                                </path>
+                            </svg>
+                            Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="../login.html" class="dropdown-item dropdown-logout">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            Log Out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div style="width: 100%; padding: 40px 40px; box-sizing: border-box;">
+        <div class="split-layout">
+            <!-- Left Stack (Sidebar) -->
+            <div class="nav-stack" style="position:relative;">
+                <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <ion-icon name="cash"></ion-icon> Earnings
+                    </div>
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                </button>
+
+                <div id="navLinksContainer" class="nav-links-container">
+                    <a href="VendorHomePage.html" class="menu-pill-btn">
+                        <ion-icon name="grid"></ion-icon> Dashboard
+                    </a>
+                    <a href="orders.html" class="menu-pill-btn">
+                        <ion-icon name="cart"></ion-icon> Orders
+                    </a>
+                    <a href="menu.html" class="menu-pill-btn">
+                        <ion-icon name="restaurant"></ion-icon> Menu
+                    </a>
+                    <a href="earnings-overview.html" class="menu-pill-btn active">
+                        <ion-icon name="cash"></ion-icon> Earnings
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Right Panel (Content) -->
+            <div class="content-area">
+                <div class="analytics-layout">
+                    <!-- Main Analytics View -->
+                    <div class="card" style="min-height: 600px;">
+                        <div class="analytics-nav"
+                            style="display: flex; gap: 20px; border-bottom: 1px solid #eee; padding-bottom: 16px; margin-bottom: 24px; align-items:center; justify-content:space-between;">
+                            <h2 style="font-size:1.5rem; margin:0; display:flex; align-items:center; gap:8px;">
+                                <ion-icon name="stats-chart-outline"></ion-icon>Reports
+                            </h2>
+                            <div style="display:flex; gap:12px; overflow-x:auto;">
+                                <button class="btn active" onclick="switchView('overview', this)">Earnings
+                                    Overview</button>
+                                <button class="btn" onclick="switchView('revenue', this)">Revenue Per Item</button>
+                                <button class="btn" onclick="switchView('profit', this)">Profit Margin Tracking</button>
+                            </div>
+                        </div>
+
+                        <div class="analytics-body">
+                            <!-- VIEW 1: Earnings Overview -->
+                            <div id="overview" class="view-section active">
+                                <div
+                                    style="text-align:center; margin-bottom:32px; background:#FFF8E1; padding:40px; border-radius:16px;">
+                                    <h2 style="font-size:2.5rem; margin-bottom:12px; font-family:'Outfit', serif;">
+                                        Earnings Overview</h2>
+                                    <p
+                                        style="color:#666; font-size:1rem; max-width:600px; margin:0 auto; line-height:1.6;">
+                                        Quickly view a summary of your earnings with daily, weekly, and seasonal
+                                        breakdowns, giving you a clear picture of your overall revenue.</p>
+                                </div>
+                                <div
+                                    style="text-align:right; margin-bottom:16px; display:flex; justify-content:flex-end; align-items:center; gap:12px;">
+                                    <select id="earningsPeriod" onchange="handleEarningsFilterChange()"
+                                        style="padding:10px 24px; border-radius:8px; border:none; background:#FFC107; font-family:'Outfit',sans-serif; font-weight:600; font-size:1rem; cursor:pointer; box-shadow:var(--shadow-sm);">
+                                        <option value="daily">Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="yearly">Yearly</option>
+                                    </select>
+                                    <div id="dateFilterContainer" style="display:none; align-items:center; gap:8px;">
+                                        <input type="date" id="earningsDatePicker"
+                                            onchange="updateEndDate(); toggleEarnings(document.getElementById('earningsPeriod').value)"
+                                            style="padding:10px 16px; border-radius:8px; border:1px solid #ddd; background:white; font-family:'Outfit',sans-serif; font-weight:500; cursor:pointer;">
+                                        <span id="dateToLabel"
+                                            style="font-weight:600; color:#666; display:none;">to</span>
+                                        <input type="date" id="earningsDateEnd" readonly
+                                            style="display:none; padding:10px 16px; border-radius:8px; border:1px solid #ddd; background:#f5f5f5; font-family:'Outfit',sans-serif; font-weight:500; color:#888; pointer-events:none;">
+                                    </div>
+                                </div>
+                                <div class="chart-container"
+                                    style="height:500px; padding:24px; border:1px solid #ddd; background:white; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+                                    <canvas id="earningsChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- VIEW 2: Revenue Per Item -->
+                            <div id="revenue" class="view-section">
+                                <div class="card"
+                                    style="margin-bottom:24px; background:#FFF8E1; padding: 24px; border-radius: 12px;">
+                                    <h3 style="margin-top:0;">Revenue Per Item</h3>
+                                    <p style="color: #666; margin-bottom: 0;">Check detailed earnings generated from
+                                        each product.</p>
+                                </div>
+                                <!-- Interactive Controls for Revenue -->
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
+                                    <div style="flex:1;">
+                                        <h4 id="revenueTitle" style="margin-bottom:8px; font-size:1.2rem;">Revenue Main
+                                            (All Items)</h4>
+                                        <p id="revenueSubtitle" style="color:#666; font-size:0.9rem;">Comparing top
+                                            performing items over the last 4 weeks.</p>
+                                    </div>
+                                    <div style="display:flex; gap:12px; align-items:center;">
+                                        <select id="itemSelect" onchange="updateRevenueView()"
+                                            style="padding:10px 16px; border-radius:8px; border:1px solid #ddd; font-family:'Outfit',sans-serif; min-width:160px;">
+                                            <option value="all">All Items</option>
+                                        </select>
+                                        <select id="revenuePeriod" onchange="updateRevenueView()"
+                                            style="padding:9px 12px; border-radius:8px; border:1px solid #ddd; font-family:'Outfit',sans-serif;">
+                                            <option value="weekly">Weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="yearly">Yearly</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="chart-container"
+                                    style="height:450px; padding:16px; border:1px solid #eee; background:white; border-radius:12px;">
+                                    <canvas id="revenueChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- VIEW 3: Profit Margin Tracking -->
+                            <div id="profit" class="view-section">
+                                <!-- Header Card -->
+                                <div class="card"
+                                    style="margin-bottom:24px; background:#FFF8E1; padding:24px; border-radius:12px;">
+                                    <h3 style="margin-top:0;">Profit Margin Tracking</h3>
+                                    <p style="color:#666; margin-bottom:0;">Monitor profit margins by factoring in costs
+                                        like ingredients, rent, and other expenses, allowing you to assess the true
+                                        profitability of your business.</p>
+                                </div>
+
+                                <!-- 1. Ingredients Table -->
+                                <!-- DATA SOURCE: Calculated from orders collection × menu_items.cost -->
+                                <div class="card"
+                                    style="background:white; padding:24px; border-radius:12px; margin-bottom:24px;">
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+                                        <h3 style="margin:0;">Ingredients Cost</h3>
+                                        <div style="display:flex; align-items:center; gap:12px;">
+                                            <button onclick="openBulkEditCostModal()"
+                                                style="background:#FFC107; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+                                                <ion-icon name="create-outline"
+                                                    style="vertical-align:middle;"></ion-icon> Bulk Edit Cost
+                                            </button>
+                                            <select id="ingredientsFilter" onchange="handleFilterChange()"
+                                                style="padding:6px 12px; border:1px solid #ddd; border-radius:6px; background:white; color:#333; font-weight:500; cursor:pointer;">
+                                                <option value="monthly" selected>Monthly</option>
+                                                <option value="weekly">Weekly</option>
+                                                <option value="daily">Daily</option>
+                                                <option value="yearly">Yearly</option>
+                                            </select>
+                                            <input type="date" id="dailyDatePicker" onchange="updateIngredientsTable()"
+                                                style="display:none; padding:6px 12px; border:1px solid #ddd; border-radius:6px; background:white; cursor:pointer;">
+                                        </div>
+                                    </div>
+                                    <div style="overflow-x:auto;">
+                                        <table id="ingredientsTable" class="custom-table display" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:40px;"><ion-icon
+                                                            name="checkbox-outline"></ion-icon></th>
+                                                    <th>Item Name</th>
+                                                    <th style="text-align:right;">Unit Cost</th>
+                                                    <th style="text-align:right;">Qty Sold</th>
+                                                    <th style="text-align:right;">Total Cost</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="ingredientsBody">
+                                                <!-- Dynamic data from Firebase -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="ingredientsTotal"
+                                        style="text-align:right; margin-top:16px; padding:12px; background:#f9f9f9; border-radius:8px; font-weight:600;">
+                                        Total: <span style="color:#F44336; font-size:1.1rem;">$ 0.00</span>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Rent & Utilities Table -->
+                                <!-- DATA SOURCE: From settings/financials document (utilities field) -->
+                                <div class="card"
+                                    style="background:white; padding:24px; border-radius:12px; margin-bottom:24px;">
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                                        <h3 style="margin:0;">Rent & Utilities</h3>
+                                    </div>
+                                    <div style="overflow-x:auto;">
+                                        <table id="rentTable" class="custom-table display" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th style="text-align:right;">Amount</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="rentBody">
+                                                <!-- Dynamic data from Firebase -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="rentTotal"
+                                        style="text-align:right; margin-top:16px; padding:12px; background:#f9f9f9; border-radius:8px; font-weight:600;">
+                                        Total: <span style="color:#F44336; font-size:1.1rem;">$ 0.00</span>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Other Expenses Table -->
+                                <!-- DATA SOURCE: From settings/financials document (other expenses) -->
+                                <div class="card"
+                                    style="background:white; padding:24px; border-radius:12px; margin-bottom:24px;">
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                                        <h3 style="margin:0;">Other Expenses</h3>
+                                    </div>
+                                    <div style="overflow-x:auto;">
+                                        <table id="expensesTable" class="custom-table display" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Expense Type</th>
+                                                    <th style="text-align:right;">Amount</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="expensesBody">
+                                                <!-- Dynamic data from Firebase -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="expensesTotal"
+                                        style="text-align:right; margin-top:16px; padding:12px; background:#f9f9f9; border-radius:8px; font-weight:600;">
+                                        Total: <span style="color:#F44336; font-size:1.1rem;">$ 0.00</span>
+                                    </div>
+                                </div>
+
+                                <!-- 4. Employee Payroll Table -->
+                                <!-- DATA SOURCE: From settings/financials document (payroll field) -->
+                                <div class="card"
+                                    style="background:white; padding:24px; border-radius:12px; margin-bottom:24px;">
+                                    <div
+                                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                                        <h3 style="margin:0;">Employee Payroll</h3>
+                                    </div>
+                                    <div style="overflow-x:auto;">
+                                        <table id="payrollTable" class="custom-table display" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Role</th>
+                                                    <th style="text-align:right;">Monthly Cost</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="payrollBody">
+                                                <!-- Dynamic data from Firebase -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="payrollTotal"
+                                        style="text-align:right; margin-top:16px; padding:12px; background:#f9f9f9; border-radius:8px; font-weight:600;">
+                                        Total: <span style="color:#F44336; font-size:1.1rem;">$ 0.00</span>
+                                    </div>
+                                </div>
+
+                                <!-- Summary Card -->
+                                <div class="card" style="background:white; padding:24px; border-radius:12px;">
+                                    <h3 style="margin-top:0;">Summary</h3>
+                                    <table class="custom-table" style="margin-bottom:0;">
+                                        <tbody id="summaryTableBody">
+                                            <tr>
+                                                <td style="font-weight:600;">Total Revenue</td>
+                                                <td style="text-align:right; color:#2E7D32; font-weight:600;">$ 0.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ingredients Cost</td>
+                                                <td style="text-align:right; color:#F44336;">$ 0.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rent & Utilities</td>
+                                                <td style="text-align:right; color:#F44336;">$ 0.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Other Expenses</td>
+                                                <td style="text-align:right; color:#F44336;">$ 0.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Payroll</td>
+                                                <td style="text-align:right; color:#F44336;">$ 0.00</td>
+                                            </tr>
+                                            <tr style="border-top:2px solid #eee;">
+                                                <td style="font-size:1.2rem; font-weight:700;">Net Profit</td>
+                                                <td
+                                                    style="text-align:right; font-size:1.2rem; font-weight:700; color:#2E7D32;">
+                                                    $ 0.00
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification"
+        style="display:none; position:fixed; top:20px; right:20px; z-index:2000; min-width:300px; max-width:400px; background:white; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.15); overflow:hidden; animation:slideInRight 0.3s ease;">
+        <div id="toastContent" style="padding:16px 20px; display:flex; align-items:center; gap:12px;">
+            <ion-icon id="toastIcon" name="checkmark-circle" style="font-size:24px; color:#4CAF50;"></ion-icon>
+            <div style="flex:1;">
+                <div id="toastTitle" style="font-weight:600; margin-bottom:4px; color:#333;"></div>
+                <div id="toastMessage" style="font-size:0.9rem; color:#666;"></div>
+            </div>
+            <button onclick="closeToast()"
+                style="background:none; border:none; cursor:pointer; padding:4px; color:#999;">
+                <ion-icon name="close" style="font-size:20px;"></ion-icon>
+            </button>
+        </div>
+        <div id="toastProgress" style="height:3px; background:#4CAF50; width:100%; animation:shrink 3s linear;"></div>
+    </div>
+
+    <style>
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shrink {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+    </style>
+
+    
+    <!-- Edit Overhead Modal -->
+    <div id="editOverheadModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div
+            style="background:white; padding:32px; border-radius:16px; max-width:500px; width:90%; box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+            <h3 style="margin-top:0; font-size:1.5rem;">Edit <span id="overheadTypeLabel"></span></h3>
+            <p style="color:#666; margin-bottom:24px;">Update the monthly cost for this overhead item.</p>
+
+            <div style="margin-bottom:24px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600; color:#333;">Amount ($)</label>
+                <input type="number" id="overheadAmountInput" step="0.01" min="0"
+                    style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; font-size:1rem; box-sizing:border-box;"
+                    placeholder="Enter amount">
+            </div>
+
+            <div style="display:flex; gap:12px; justify-content:flex-end;">
+                <button onclick="closeOverheadModal()"
+                    style="padding:10px 24px; border:1px solid #ddd; background:white; border-radius:8px; cursor:pointer; font-weight:600; color:#666;">
+                    Cancel
+                </button>
+                <button onclick="saveOverheadValue()"
+                    style="padding:10px 24px; border:none; background:#FFC107; color:black; border-radius:8px; cursor:pointer; font-weight:600; box-shadow:0 2px 8px rgba(255,193,7,0.3);">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Cost Update Modal -->
+    <div id="bulkCostModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div
+            style="background:white; padding:32px; border-radius:16px; max-width:400px; width:90%; box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+            <h3 style="margin-top:0; font-size:1.5rem;">Update Cost Price</h3>
+            <p style="color:#666; margin-bottom:24px;">Set new unit cost for <span id="selectedCountSpan"
+                    style="font-weight:bold;">0</span> selected items.</p>
+
+            <div style="margin-bottom:24px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600; color:#333;">New Unit Cost ($)</label>
+                <input type="number" id="bulkCostInput" step="0.01" min="0"
+                    style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; font-size:1rem;"
+                    placeholder="e.g. 2.50">
+            </div>
+
+            <div style="display:flex; gap:12px; justify-content:flex-end;">
+                <button onclick="closeBulkCostModal()"
+                    style="padding:10px 24px; border:1px solid #ddd; background:white; border-radius:8px; cursor:pointer; font-weight:600;">Cancel</button>
+                <button onclick="saveBulkCost()"
+                    style="padding:10px 24px; border:none; background:#2E7D32; color:white; border-radius:8px; cursor:pointer; font-weight:600;">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS LOGIC -->
+    <script>
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notifDropdown');
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.closest('.icon-btn') && !event.target.closest('#notifDropdown')) {
+                const dropdown = document.getElementById('notifDropdown');
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+            }
+        }
+
+        // Toast Notification Functions
+        let toastTimeout;
+
+        window.showToast = (title, message, type = 'success') => {
+            const toast = document.getElementById('toastNotification');
+            const icon = document.getElementById('toastIcon');
+            const progress = document.getElementById('toastProgress');
+            const titleEl = document.getElementById('toastTitle');
+            const messageEl = document.getElementById('toastMessage');
+
+            // Set content
+            titleEl.innerText = title;
+            messageEl.innerText = message;
+
+            // Set icon and color based on type
+            if (type === 'success') {
+                icon.setAttribute('name', 'checkmark-circle');
+                icon.style.color = '#4CAF50';
+                progress.style.background = '#4CAF50';
+            } else if (type === 'error') {
+                icon.setAttribute('name', 'close-circle');
+                icon.style.color = '#F44336';
+                progress.style.background = '#F44336';
+            } else if (type === 'warning') {
+                icon.setAttribute('name', 'warning');
+                icon.style.color = '#FFC107';
+                progress.style.background = '#FFC107';
+            }
+
+            // Show toast
+            toast.style.display = 'block';
+            toast.style.animation = 'slideInRight 0.3s ease';
+
+            // Reset progress animation
+            progress.style.animation = 'none';
+            setTimeout(() => {
+                progress.style.animation = 'shrink 3s linear';
+            }, 10);
+
+            // Auto close after 3 seconds
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                closeToast();
+            }, 3000);
+        };
+
+        window.closeToast = () => {
+            const toast = document.getElementById('toastNotification');
+            toast.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 300);
+            clearTimeout(toastTimeout);
+        };
+    </script>
+
+    <!-- ANALYTICS LOGIC -->
+    <script type="module">
+        import { db } from '../js/firebase-config2.js';
+        import { collection, query, where, onSnapshot, doc, setDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+
+        // Global State for Summary Calculation
+        let summaryData = {
+            totalRevenue: 0,
+            ingredientsCost: 0,
+            rent: 0,
+            expenses: 0,
+            payroll: 0
+        };
+
+        let completedOrders = [];
+        let menuItems = [];
+        let overheadData = { rent: 0, payroll: 0, utilities: 0, other: 0 };
+        let earningsChart;
+        let revenueChart;
+        let fpInstance;
+
+        // Make functions globally available
+        window.switchView = (viewId, btn) => {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            document.querySelectorAll('.analytics-nav .btn').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+            if (viewId === 'revenue' && revenueChart) {
+                revenueChart.resize();
+            }
+        };
+
+        // Handle earnings filter change to show/hide date picker
+        window.handleEarningsFilterChange = () => {
+            const period = document.getElementById('earningsPeriod').value;
+            const container = document.getElementById('dateFilterContainer');
+            // We use the single input for Flatpickr now
+            const startInput = document.getElementById('earningsDatePicker');
+
+            if (period === 'daily' || period === 'weekly') {
+                container.style.display = 'flex';
+
+                // Initialize/Update Flatpickr
+                if (fpInstance) {
+                    fpInstance.destroy();
+                    fpInstance = null;
+                }
+
+                if (period === 'daily') {
+                    // Single date mode
+                    document.getElementById('dateToLabel').style.display = 'none';
+                    document.getElementById('earningsDateEnd').style.display = 'none';
+
+                    fpInstance = flatpickr("#earningsDatePicker", {
+                        mode: "single",
+                        dateFormat: "Y-m-d",
+                        defaultDate: "today",
+                        onChange: function (selectedDates, dateStr) {
+                            toggleEarnings('daily');
+                        }
+                    });
+                } else if (period === 'weekly') {
+                    // Range mode for visual "between date animation"
+                    document.getElementById('dateToLabel').style.display = 'none';
+                    document.getElementById('earningsDateEnd').style.display = 'none';
+
+                    const today = new Date();
+                    const nextWeek = new Date(today);
+                    nextWeek.setDate(today.getDate() + 6);
+
+                    fpInstance = flatpickr("#earningsDatePicker", {
+                        mode: "range",
+                        dateFormat: "Y-m-d",
+                        defaultDate: [today, nextWeek],
+                        onChange: function (selectedDates, dateStr, instance) {
+                            // Logic: If user picks 1 date, auto-select range +6 days
+                            if (selectedDates.length === 1) {
+                                const startDate = selectedDates[0];
+                                const endDate = new Date(startDate);
+                                endDate.setDate(startDate.getDate() + 6);
+                                instance.setDate([startDate, endDate], true);
+                            } else if (selectedDates.length === 2) {
+                                toggleEarnings('weekly');
+                            }
+                        }
+                    });
+                }
+            } else {
+                container.style.display = 'none';
+                if (fpInstance) fpInstance.destroy();
+                toggleEarnings(period);
+            }
+        };
+
+        // Remove updateEndDate as Flatpickr handles it
+        window.updateEndDate = () => { };
+
+        window.toggleEarnings = (period) => {
+            if (!earningsChart) return;
+            const labels = [];
+            const data = [];
+
+            // Helper: Compare two dates ignoring time
+            const isSameDay = (d1, d2) => {
+                return d1.getFullYear() === d2.getFullYear() &&
+                    d1.getMonth() === d2.getMonth() &&
+                    d1.getDate() === d2.getDate();
+            };
+
+            // Get dates from Flatpickr
+            const getSelectedDates = () => {
+                if (!fpInstance || !fpInstance.selectedDates.length) return [new Date()];
+                if (period === 'daily') return [fpInstance.selectedDates[0]];
+                if (period === 'weekly') {
+                    if (fpInstance.selectedDates.length === 2) {
+                        return [fpInstance.selectedDates[0], fpInstance.selectedDates[1]];
+                    }
+                    if (fpInstance.selectedDates.length === 1) {
+                        return [fpInstance.selectedDates[0]];
+                    }
+                    return [new Date()];
+                }
+                return [new Date()];
+            };
+
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth();
+
+            if (period === 'daily') {
+                const selectedDate = getSelectedDates()[0];
+                for (let i = 8; i <= 22; i += 2) {
+                    labels.push(`${i}:00`);
+                    const hourTotal = completedOrders.filter(o => {
+                        const d = o.timestamp ? o.timestamp.toDate() : new Date();
+                        return isSameDay(d, selectedDate) && d.getHours() >= i && d.getHours() < i + 2;
+                    }).reduce((sum, o) => sum + calculateOrderTotal(o), 0);
+                    data.push(hourTotal);
+                }
+            } else if (period === 'weekly') {
+                const dates = getSelectedDates();
+                const startDate = dates[0];
+                // Display 7 days starting from startDate
+                for (let i = 0; i < 7; i++) {
+                    const d = new Date(startDate);
+                    d.setDate(d.getDate() + i);
+                    labels.push(d.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' }));
+                    const dayTotal = completedOrders.filter(o => isSameDay(o.timestamp ? o.timestamp.toDate() : new Date(), d)).reduce((sum, o) => sum + calculateOrderTotal(o), 0);
+                    data.push(dayTotal);
+                }
+            } else if (period === 'monthly') {
+                labels.push('Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5');
+                const weeklyTotals = [0, 0, 0, 0, 0];
+                completedOrders.forEach(o => {
+                    const d = o.timestamp ? o.timestamp.toDate() : new Date();
+                    if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+                        const date = d.getDate();
+                        const weekIndex = Math.floor((date - 1) / 7);
+                        if (weekIndex <= 4) {
+                            weeklyTotals[weekIndex] += calculateOrderTotal(o);
+                        }
+                    }
+                });
+                data.push(...weeklyTotals);
+            } else if (period === 'yearly') {
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                labels.push(...months);
+                const monthlyTotals = new Array(12).fill(0);
+                completedOrders.forEach(o => {
+                    const d = o.timestamp ? o.timestamp.toDate() : new Date();
+                    if (d.getFullYear() === currentYear) {
+                        monthlyTotals[d.getMonth()] += calculateOrderTotal(o);
+                    }
+                });
+                data.push(...monthlyTotals);
+            }
+
+            earningsChart.data.labels = labels;
+            earningsChart.data.datasets[0].data = data;
+            earningsChart.update();
+        };
+
+        const colors = ['#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722'];
+
+        window.updateRevenueView = () => {
+            if (!revenueChart) return;
+            const itemSelect = document.getElementById('itemSelect');
+            const selectedItem = itemSelect.value;
+            const title = document.getElementById('revenueTitle');
+            const subtitle = document.getElementById('revenueSubtitle');
+            const periodSelect = document.getElementById('revenuePeriod');
+            const period = periodSelect ? periodSelect.value : 'weekly';
+
+            let labels = [];
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth();
+
+            if (period === 'weekly') {
+                for (let i = 6; i >= 0; i--) {
+                    const d = new Date(now);
+                    d.setDate(d.getDate() - i);
+                    labels.push(d.toLocaleDateString('en-US', { weekday: 'short' }));
+                }
+            } else if (period === 'monthly') {
+                labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'];
+            } else if (period === 'yearly') {
+                labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            }
+
+            let datasets = [];
+
+            if (selectedItem === 'all') {
+                title.innerText = 'Revenue Trends (All Items)';
+                let subtitleText = '';
+                if (period === 'weekly') subtitleText = 'Daily revenue per menu item (Last 7 Days).';
+                else if (period === 'monthly') subtitleText = 'Weekly revenue breakdown (Current Month).';
+                else if (period === 'yearly') subtitleText = 'Monthly revenue breakdown (Current Year).';
+                subtitle.innerText = subtitleText;
+
+                const allItemNames = new Set(menuItems.map(m => m.name));
+                completedOrders.forEach(o => (o.items || []).forEach(i => allItemNames.add(i.name)));
+
+                const itemTotalRevenue = {};
+                allItemNames.forEach(name => itemTotalRevenue[name] = 0);
+                completedOrders.forEach(o => {
+                    (o.items || []).forEach(i => {
+                        if (itemTotalRevenue[i.name] !== undefined) {
+                            itemTotalRevenue[i.name] += (i.price || 0) * i.qty;
+                        } else {
+                            itemTotalRevenue[i.name] = (i.price || 0) * i.qty;
+                        }
+                    });
+                });
+
+                const topItems = Object.entries(itemTotalRevenue).sort((a, b) => b[1] - a[1]).slice(0, 5).map(entry => entry[0]);
+                let colorIdx = 0;
+
+                topItems.forEach(itemName => {
+                    let itemData = [];
+                    if (period === 'weekly') {
+                        itemData = [];
+                        for (let i = 6; i >= 0; i--) {
+                            const d = new Date(now);
+                            d.setDate(d.getDate() - i);
+                            const val = completedOrders.filter(o => isSameDay(o.timestamp ? o.timestamp.toDate() : new Date(), d)).reduce((sum, o) => {
+                                const itemInOrder = (o.items || []).find(i => i.name === itemName);
+                                return sum + (itemInOrder ? (itemInOrder.price || 0) * itemInOrder.qty : 0);
+                            }, 0);
+                            itemData.push(val);
+                        }
+                    } else if (period === 'monthly') {
+                        itemData = [0, 0, 0, 0, 0];
+                        completedOrders.forEach(o => {
+                            const d = o.timestamp ? o.timestamp.toDate() : new Date();
+                            if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+                                const weekIndex = Math.floor((d.getDate() - 1) / 7);
+                                if (weekIndex <= 4) {
+                                    const itemInOrder = (o.items || []).find(i => i.name === itemName);
+                                    if (itemInOrder) itemData[weekIndex] += (itemInOrder.price || 0) * itemInOrder.qty;
+                                }
+                            }
+                        });
+                    } else if (period === 'yearly') {
+                        itemData = new Array(12).fill(0);
+                        completedOrders.forEach(o => {
+                            const d = o.timestamp ? o.timestamp.toDate() : new Date();
+                            if (d.getFullYear() === currentYear) {
+                                const itemInOrder = (o.items || []).find(i => i.name === itemName);
+                                if (itemInOrder) itemData[d.getMonth()] += (itemInOrder.price || 0) * itemInOrder.qty;
+                            }
+                        });
+                    }
+
+                    datasets.push({
+                        label: itemName,
+                        data: itemData,
+                        borderColor: colors[colorIdx % colors.length],
+                        backgroundColor: 'transparent',
+                        tension: 0.3,
+                        borderWidth: 2
+                    });
+                    colorIdx++;
+                });
+            } else {
+                title.innerText = `Revenue: ${formatName(selectedItem)}`;
+                subtitle.innerText = "Revenue trend.";
+
+                let itemData = [];
+                if (period === 'weekly') {
+                    for (let i = 6; i >= 0; i--) {
+                        const d = new Date(now);
+                        d.setDate(d.getDate() - i);
+                        const val = completedOrders.filter(o => isSameDay(o.timestamp ? o.timestamp.toDate() : new Date(), d)).reduce((sum, o) => {
+                            const item = (o.items || []).find(i => i.name === selectedItem);
+                            return sum + (item ? (item.price || 0) * item.qty : 0);
+                        }, 0);
+                        itemData.push(val);
+                    }
+                } else if (period === 'monthly') {
+                    const weeklyTotals = [0, 0, 0, 0, 0];
+                    completedOrders.forEach(o => {
+                        const d = o.timestamp ? o.timestamp.toDate() : new Date();
+                        if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+                            const weekIndex = Math.floor((d.getDate() - 1) / 7);
+                            if (weekIndex <= 4) {
+                                const item = (o.items || []).find(i => i.name === selectedItem);
+                                if (item) weeklyTotals[weekIndex] += (item.price || 0) * item.qty;
+                            }
+                        }
+                    });
+                    itemData.push(...weeklyTotals);
+                } else if (period === 'yearly') {
+                    const monthlyTotals = new Array(12).fill(0);
+                    completedOrders.forEach(o => {
+                        const d = o.timestamp ? o.timestamp.toDate() : new Date();
+                        if (d.getFullYear() === currentYear) {
+                            const item = (o.items || []).find(i => i.name === selectedItem);
+                            if (item) monthlyTotals[d.getMonth()] += (item.price || 0) * item.qty;
+                        }
+                    });
+                    itemData.push(...monthlyTotals);
+                }
+
+                datasets.push({
+                    label: selectedItem,
+                    data: itemData,
+                    borderColor: '#FFC107',
+                    backgroundColor: '#FFC10720',
+                    fill: true,
+                    tension: 0.3
+                });
+            }
+
+            revenueChart.data = { labels, datasets };
+            revenueChart.update();
+        };
+
+        // Handle filter change to show/hide date picker
+        window.handleFilterChange = () => {
+            const period = document.getElementById('ingredientsFilter').value;
+            const datePicker = document.getElementById('dailyDatePicker');
+
+            if (period === 'daily') {
+                datePicker.style.display = 'block';
+                // Set default to today
+                if (!datePicker.value) {
+                    datePicker.value = new Date().toISOString().split('T')[0];
+                }
+            } else {
+                datePicker.style.display = 'none';
+            }
+
+            updateIngredientsTable();
+        };
+
+        // Bulk Update Cost Modal Functions
+        window.openBulkEditCostModal = () => {
+            const checkedBoxes = document.querySelectorAll('.ingredient-checkbox:checked');
+            if (checkedBoxes.length === 0) {
+                showToast('No Items Selected', 'Please select items to update.', 'warning');
+                return;
+            }
+            document.getElementById('bulkCostModal').style.display = 'flex';
+            document.getElementById('selectedCountSpan').innerText = checkedBoxes.length;
+        };
+
+        window.closeBulkCostModal = () => {
+            document.getElementById('bulkCostModal').style.display = 'none';
+        };
+
+        window.saveBulkCost = async () => {
+            const newCost = parseFloat(document.getElementById('bulkCostInput').value);
+            if (isNaN(newCost) || newCost < 0) {
+                showToast('Invalid Cost', 'Please enter a valid cost.', 'error');
+                return;
+            }
+
+            const checkedBoxes = document.querySelectorAll('.ingredient-checkbox:checked');
+            const batch = writeBatch(db); // Requires adding writeBatch to imports
+            let count = 0;
+
+            checkedBoxes.forEach(box => {
+                const itemName = box.value;
+                // Find menu item ID by name
+                const menuItem = menuItems.find(m => m.name === itemName);
+                if (menuItem) {
+                    const ref = doc(db, 'menu_items', menuItem.id);
+                    batch.update(ref, { cost: newCost });
+                    count++;
+                }
+            });
+
+            try {
+                await batch.commit();
+                closeBulkCostModal();
+                showToast('Success', `Updated cost for ${count} items.`, 'success');
+                // Table will refresh via snapshot listener
+            } catch (e) {
+                console.error(e);
+                showToast('Error', 'Failed to update costs.', 'error');
+            }
+        };
+
+        window.updateIngredientsTable = () => {
+            // Calculate ingredients cost from completed orders × menu_items.cost
+            const period = document.getElementById('ingredientsFilter').value;
+            const datePicker = document.getElementById('dailyDatePicker');
+            const now = new Date();
+
+            // Destroy existing DataTable if it exists
+            if ($.fn.DataTable.isDataTable('#ingredientsTable')) {
+                $('#ingredientsTable').DataTable().destroy();
+            }
+
+            const ingredientsBody = document.getElementById('ingredientsBody');
+            ingredientsBody.innerHTML = '';
+
+            // Reset Ingredients Cost in Summary State
+            summaryData.ingredientsCost = 0;
+
+            // Calculate quantity sold per item based on period
+            const itemStats = {};
+
+            completedOrders.forEach(order => {
+                const orderDate = order.timestamp ? order.timestamp.toDate() : new Date();
+                let includeOrder = false;
+
+                if (period === 'daily') {
+                    // Use selected date from date picker
+                    if (datePicker.value) {
+                        const selectedDate = new Date(datePicker.value);
+                        includeOrder = isSameDay(orderDate, selectedDate);
+                    } else {
+                        includeOrder = isSameDay(orderDate, now);
+                    }
+                } else if (period === 'weekly') {
+                    const weekAgo = new Date(now);
+                    weekAgo.setDate(weekAgo.getDate() - 7);
+                    includeOrder = orderDate >= weekAgo;
+                } else if (period === 'monthly') {
+                    includeOrder = orderDate.getMonth() === now.getMonth() && orderDate.getFullYear() === now.getFullYear();
+                } else if (period === 'yearly') {
+                    includeOrder = orderDate.getFullYear() === now.getFullYear();
+                }
+
+                if (includeOrder && order.items) {
+                    order.items.forEach(item => {
+                        if (!itemStats[item.name]) {
+                            itemStats[item.name] = { qty: 0, cost: 0 };
+                        }
+                        itemStats[item.name].qty += item.qty;
+                    });
+                }
+            });
+
+            // Match with menu items to get cost
+            let totalCost = 0;
+            Object.keys(itemStats).forEach(itemName => {
+                const menuItem = menuItems.find(m => m.name === itemName);
+                const unitCost = menuItem ? (menuItem.cost || 0) : 0;
+                const qtySold = itemStats[itemName].qty;
+                const total = unitCost * qtySold;
+
+                totalCost += total;
+                summaryData.ingredientsCost += total; // Accumulate global state
+
+                const row = `
+                    <tr>
+                        <td style="text-align:center;"><input type="checkbox" class="ingredient-checkbox" value="${itemName}"></td>
+                        <td>${itemName}</td>
+                        <td style="text-align:right;">
+                             <span style="font-weight:600;">$ ${unitCost.toFixed(2)}</span>
+                        </td>
+                        <td style="text-align:right;">${qtySold}</td>
+                        <td style="text-align:right;">$ ${total.toFixed(2)}</td>
+                    </tr>
+                `;
+                ingredientsBody.innerHTML += row;
+            });
+
+            // Update total display
+            document.querySelector('#ingredientsTotal span').innerText = `$ ${totalCost.toFixed(2)}`;
+
+            // Initialize DataTable
+            $('#ingredientsTable').DataTable({
+                pageLength: 10,
+                order: [[4, 'desc']], // Sort by Total Cost descending
+                columnDefs: [{ orderable: false, targets: 0 }],
+                language: {
+                    search: "Search items:",
+                    lengthMenu: "Show _MENU_ items",
+                    info: "Showing _START_ to _END_ of _TOTAL_ items"
+                }
+            });
+
+            // Update Summary Card whenever this table updates
+            updateSummaryCard();
+        };
+
+        // Initialize Overhead Tables (Rent, Expenses, Payroll)
+        function initializeOverheadTables() {
+            // Reset Summary Data for Overheads
+            summaryData.rent = 0;
+            summaryData.expenses = 0;
+            summaryData.payroll = 0;
+
+            // 1. Rent & Utilities Table
+            if ($.fn.DataTable.isDataTable('#rentTable')) {
+                $('#rentTable').DataTable().destroy();
+            }
+
+            const rentBody = document.getElementById('rentBody');
+            rentBody.innerHTML = '';
+            let rentTotal = 0;
+
+            if (overheadData.rent) {
+                summaryData.rent += overheadData.rent;
+                rentTotal += overheadData.rent;
+                rentBody.innerHTML += `
+                    <tr>
+                        <td>Rent</td>
+                        <td style="text-align:right;">$ ${overheadData.rent.toFixed(2)}</td>
+                        <td><button class="btn-edit" onclick="editOverhead('rent')">Edit</button></td>
+                    </tr>
+                `;
+            }
+
+            if (overheadData.utilities) {
+                summaryData.rent += overheadData.utilities; // Group utilities into Rent & Utilities
+                rentTotal += overheadData.utilities;
+                rentBody.innerHTML += `
+                    <tr>
+                        <td>Utilities</td>
+                        <td style="text-align:right;">$ ${overheadData.utilities.toFixed(2)}</td>
+                        <td><button class="btn-edit" onclick="editOverhead('utilities')">Edit</button></td>
+                    </tr>
+                `;
+            }
+
+            document.querySelector('#rentTotal span').innerText = `$ ${rentTotal.toFixed(2)}`;
+
+            $('#rentTable').DataTable({
+                pageLength: 10,
+                searching: false,
+                paging: false,
+                info: false
+            });
+
+            // 2. Other Expenses Table
+            if ($.fn.DataTable.isDataTable('#expensesTable')) {
+                $('#expensesTable').DataTable().destroy();
+            }
+
+            const expensesBody = document.getElementById('expensesBody');
+            expensesBody.innerHTML = '';
+            let expensesTotal = 0;
+
+            if (overheadData.other) {
+                summaryData.expenses += overheadData.other; // Accumulate expenses
+                expensesTotal += overheadData.other;
+                expensesBody.innerHTML += `
+                    <tr>
+                        <td>Other Expenses</td>
+                        <td style="text-align:right;">$ ${overheadData.other.toFixed(2)}</td>
+                        <td><button class="btn-edit" onclick="editOverhead('other')">Edit</button></td>
+                    </tr>
+                `;
+            }
+
+            document.querySelector('#expensesTotal span').innerText = `$ ${expensesTotal.toFixed(2)}`;
+
+            $('#expensesTable').DataTable({
+                pageLength: 10,
+                searching: false,
+                paging: false,
+                info: false
+            });
+
+            // 3. Payroll Table
+            if ($.fn.DataTable.isDataTable('#payrollTable')) {
+                $('#payrollTable').DataTable().destroy();
+            }
+
+            const payrollBody = document.getElementById('payrollBody');
+            payrollBody.innerHTML = '';
+            let payrollTotal = 0;
+
+            if (overheadData.payroll) {
+                summaryData.payroll += overheadData.payroll; // Accumulate payroll
+                payrollTotal += overheadData.payroll;
+                payrollBody.innerHTML += `
+                    <tr>
+                        <td>Staff Payroll</td>
+                        <td style="text-align:right;">$ ${overheadData.payroll.toFixed(2)}</td>
+                        <td><button class="btn-edit" onclick="editOverhead('payroll')">Edit</button></td>
+                    </tr>
+                `;
+            }
+
+            document.querySelector('#payrollTotal span').innerText = `$ ${payrollTotal.toFixed(2)}`;
+
+            $('#payrollTable').DataTable({
+                pageLength: 10,
+                searching: false,
+                paging: false,
+                info: false
+            });
+
+            // Update Summary Card
+            updateSummaryCard();
+        }
+
+        // Update Summary Card with dynamic calculations
+        function updateSummaryCard() {
+            // Recalculate Total Revenue based on completed orders
+            summaryData.totalRevenue = completedOrders.reduce((sum, o) => sum + calculateOrderTotal(o), 0);
+
+            // Use values from global state
+            const totalRevenue = summaryData.totalRevenue;
+            const ingredientsCost = summaryData.ingredientsCost;
+            const rentCost = summaryData.rent;
+            const expensesCost = summaryData.expenses;
+            const payrollCost = summaryData.payroll;
+
+            const netProfit = totalRevenue - (ingredientsCost + rentCost + expensesCost + payrollCost);
+
+            // Update summary table (if exists)
+            const summaryTableBody = document.getElementById('summaryTableBody');
+            if (summaryTableBody) {
+                summaryTableBody.innerHTML = `
+                    <tr>
+                        <td style="font-weight:600;">Total Revenue</td>
+                        <td style="text-align:right; color:#2E7D32; font-weight:600;">$ ${totalRevenue.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Ingredients Cost</td>
+                        <td style="text-align:right; color:#F44336;">$ ${ingredientsCost.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Rent & Utilities</td>
+                        <td style="text-align:right; color:#F44336;">$ ${rentCost.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Other Expenses</td>
+                        <td style="text-align:right; color:#F44336;">$ ${expensesCost.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Payroll</td>
+                        <td style="text-align:right; color:#F44336;">$ ${payrollCost.toFixed(2)}</td>
+                    </tr>
+                    <tr style="border-top:2px solid #eee;">
+                        <td style="font-size:1.2rem; font-weight:700;">Net Profit</td>
+                        <td style="text-align:right; font-size:1.2rem; font-weight:700; color:${netProfit >= 0 ? '#2E7D32' : '#F44336'};">
+                            $ ${netProfit.toFixed(2)}
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Edit Overhead Modal Functions
+        let currentEditType = '';
+
+        window.editOverhead = (type) => {
+            currentEditType = type;
+            const modal = document.getElementById('editOverheadModal');
+            const label = document.getElementById('overheadTypeLabel');
+            const input = document.getElementById('overheadAmountInput');
+
+            // Set label and current value
+            const typeLabels = {
+                'rent': 'Rent',
+                'utilities': 'Utilities',
+                'other': 'Other Expenses',
+                'payroll': 'Payroll'
+            };
+
+            label.innerText = typeLabels[type] || type;
+            input.value = overheadData[type] || 0;
+
+            // Show modal
+            modal.style.display = 'flex';
+        };
+
+        window.closeOverheadModal = () => {
+            const modal = document.getElementById('editOverheadModal');
+            modal.style.display = 'none';
+            currentEditType = '';
+        };
+
+        window.saveOverheadValue = async () => {
+            const input = document.getElementById('overheadAmountInput');
+            const newValue = parseFloat(input.value);
+
+            if (isNaN(newValue) || newValue < 0) {
+                showToast('Invalid Input', 'Please enter a valid positive number', 'warning');
+                return;
+            }
+
+            try {
+                // Update Firebase
+                const financialsRef = doc(db, 'settings', 'financials');
+                await setDoc(financialsRef, {
+                    ...overheadData,
+                    [currentEditType]: newValue
+                }, { merge: true });
+
+                console.log(`Updated ${currentEditType} to ${newValue}`);
+
+                // Close modal
+                closeOverheadModal();
+
+                // Show success toast
+                const typeName = currentEditType.charAt(0).toUpperCase() + currentEditType.slice(1);
+                showToast('Success!', `${typeName} updated successfully`, 'success');
+            } catch (error) {
+                console.error('Error updating overhead:', error);
+                showToast('Error', 'Failed to update. Please try again.', 'error');
+            }
+        };
+
+        // Helper Functions
+        function calculateOrderTotal(order) {
+            return (order.items || []).reduce((acc, item) => acc + ((item.price || 5) * item.qty), 0);
+        }
+
+        function isSameDay(d1, d2) {
+            const date1 = d1.toDate ? d1.toDate() : d1;
+            const date2 = d2.toDate ? d2.toDate() : d2;
+            return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate();
+        }
+
+        function formatName(str) {
+            if (!str) return '';
+            return str.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+
+        function updateItemSelectOptions() {
+            const select = document.getElementById('itemSelect');
+            if (!select) return;
+
+            const items = new Set();
+            menuItems.forEach(m => items.add(m.name));
+            completedOrders.forEach(o => {
+                if (o.items) o.items.forEach(i => items.add(i.name));
+            });
+
+            const currentVal = select.value;
+            select.innerHTML = '<option value="all">All Items</option>';
+
+            items.forEach(item => {
+                if (!item) return;
+                const opt = document.createElement('option');
+                opt.value = item;
+                opt.innerText = item;
+                select.appendChild(opt);
+            });
+            select.value = currentVal || 'all';
+        }
+
+        // Init Function
+        function initCharts() {
+            if (earningsChart) earningsChart.destroy();
+            if (revenueChart) revenueChart.destroy();
+
+            const ctx1 = document.getElementById('earningsChart').getContext('2d');
+            earningsChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Revenue ($)',
+                        data: [],
+                        borderColor: '#FFC107',
+                        backgroundColor: '#FFC10720',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            const ctx2 = document.getElementById('revenueChart').getContext('2d');
+            revenueChart = new Chart(ctx2, {
+                type: 'line',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // Firebase Listeners
+        const q = query(collection(db, "orders"), where("status", "in", ["completed", "served"]));
+        onSnapshot(q, (snapshot) => {
+            completedOrders = [];
+            snapshot.forEach(doc => {
+                completedOrders.push({ id: doc.id, ...doc.data() });
+            });
+            console.log("Loaded Completed Orders:", completedOrders.length);
+            refreshAll();
+        });
+
+        onSnapshot(doc(db, "settings", "financials"), (docSnap) => {
+            if (docSnap.exists()) {
+                overheadData = docSnap.data();
+            } else {
+                overheadData = { rent: 2500, payroll: 5000, utilities: 450, other: 120 };
+            }
+            refreshAll();
+        });
+
+        onSnapshot(collection(db, "menu_items"), (snapshot) => {
+            menuItems = [];
+            snapshot.forEach(doc => {
+                menuItems.push({ id: doc.id, ...doc.data() });
+            });
+            console.log("Loaded Menu Items:", menuItems.length);
+            refreshAll();
+        });
+
+        function refreshAll() {
+            if (!earningsChart) {
+                initCharts();
+            }
+            if (earningsChart) toggleEarnings(document.getElementById('earningsPeriod').value);
+            updateItemSelectOptions();
+            updateRevenueView();
+
+            // Update Profit Margin Tables (Drivers for Summary)
+            updateIngredientsTable();
+            initializeOverheadTables();
+        }
+    </script>
+</body>
+
+</html>
