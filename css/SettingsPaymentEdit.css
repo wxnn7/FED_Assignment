@@ -1,16 +1,12 @@
-/* SettingsPayment.css (use for BOTH Payment + Edit Payment pages) */
-
 .pay{
   padding-top: 22px;
 }
 
-/* centered column */
 .pay-section{
   width: min(720px, 92%);
   margin: 0 auto;
 }
 
-/* big centered title */
 .pay-title{
   text-align: center;
   font-size: 34px;
@@ -18,7 +14,7 @@
   margin: 10px 0 26px;
 }
 
-/* row: subtitle (left) + Edit/Done (right) */
+
 .pay-head{
   display:flex;
   align-items:center;
@@ -26,7 +22,6 @@
   margin: 0 0 14px;
 }
 
-/* section headings */
 .pay-subtitle{
   font-size: 22px;
   font-weight: 800;
@@ -34,7 +29,6 @@
   margin: 0 0 16px;
 }
 
-/* Edit / Done link */
 .pay-link{
   font-size: 18px;
   font-weight: 800;
@@ -43,14 +37,13 @@
 }
 .pay-link:hover{ text-decoration: underline; }
 
-/* list spacing */  
 .pay-list{
   display:flex;
   flex-direction:column;
   gap: 18px;
 }
 
-/* cards */
+
 .pay-row,
 .pay-add{
   background:#fff;
@@ -64,7 +57,6 @@
   gap: 14px;
 }
 
-/* left content */
 .pay-left{
   display:flex;
   align-items:center;
@@ -72,7 +64,6 @@
   min-width: 0;
 }
 
-/* icons */
 .pay-ico{
   width: 34px;
   height: 24px;
@@ -80,7 +71,7 @@
   flex: 0 0 auto;
 }
 
-/* text */
+
 .pay-name{
   font-size: 16px;
   font-weight: 800;
@@ -92,7 +83,7 @@
   margin-top: 4px;
 }
 
-/* divider line */
+
 .pay-divider{
   height: 2px;
   background: rgba(255, 196, 74, 0.55);
@@ -100,7 +91,6 @@
   border-radius: 999px;
 }
 
-/* add row */
 .pay-add{
   text-decoration:none;
   color: inherit;
@@ -114,7 +104,6 @@
   line-height: 1;
 }
 
-/* edit remove button (red + underlined like your target) */
 .remove{
   border:none;
   background: transparent;

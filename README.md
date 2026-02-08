@@ -37,11 +37,23 @@ We are creating a Singapore Hawker Centre Management System with HTML as a Group
 - User authentication (login/signup)
 
 ### Vendor Features 
+- Vendor home page
 - Stall management dashboard
 - Menu and pricing management
 - Order Management
 - Order notifications and management
 - Sales analytics
+- Vendor notifications
+- Vendor rental agreement
+
+### Settings feature 
+- My account
+- Notifications
+- Dietary Restrictions
+- Payment method
+- Langauge
+- Password and Security
+  
 
 ### NEA Inspector Features
 - **Inspection Scheduling:** Interactive calendar for scheduling inspections with real-time Firebase sync
@@ -544,7 +556,7 @@ FED_Assignment/
 ## Team Members
 - **Wynn Lee** – [Contribution area]
 - **Jiliana Sky** – [Contribution area]
-- **Chloe** – [Contribution area]
+- **Chloe** – Vendor home page, vendor rental agreement, vendor notification, settings password and security, settings language, settings card payment method
 - **Shenise** – Vendor Menu Management, Vendor Order Management, Vendor Earnings
 - **Jovan Soo** – Inspector pages, Firebase integration, data architecture, CSS centralization
 

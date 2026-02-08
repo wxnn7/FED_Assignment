@@ -1,11 +1,10 @@
-/* SettingsSidebar.css */
+
 .settings-layout{
   display: grid;
   grid-template-columns: 260px 1fr;
-  min-height: calc(100vh - 78px); /* navbar height */
+  min-height: calc(100vh - 78px); 
 }
 
-/* left column */
 .settings-sidebar{
   background: #F2E6D2;
   border-right: 1px solid rgba(0,0,0,0.08);
@@ -15,7 +14,6 @@
   gap: 10px;
 }
 
-/* each row */
 .side-item{
   display: flex;
   align-items: center;
@@ -52,13 +50,11 @@
   font-weight: 800;
 }
 
-/* right column */
 .settings-content{
   background: #F9F6EA;
   padding: 28px 34px;
 }
 
-/* mobile */
 @media (max-width: 980px){
   .settings-layout{
     grid-template-columns: 1fr;
