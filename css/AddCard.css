@@ -52,18 +52,17 @@ body{
 /* LABELS */
 .f-label{
   display: block;
-  font-size: 13px;        /* was 10px */
+  font-size: 13px;      
   color: #333;
   margin: 18px 0 10px;
   font-weight: 700;
 }
 
-/* UNDERLINE INPUT STYLE */
 .f-line{
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-bottom: 6px;   /* more breathing room */
+  padding-bottom: 6px;  
 }
 
 .f-input{
@@ -71,7 +70,7 @@ body{
   outline: none;
   background: transparent;
   flex: 1;
-  font-size: 14px;        /* was 11px */
+  font-size: 14px;      
   padding: 6px 0;
   
 
@@ -83,7 +82,6 @@ body{
   font-weight: 600;
 }
 
-/* BRAND ICONS */
 .brand{
   width: 100%;
   display: flex;
@@ -92,26 +90,24 @@ body{
 }
 
 .brand img{
-  width: 32px;            /* slightly bigger  */
+  width: 32px;         
   height: 22px;
   object-fit: contain;
 }
 
-/* GRID FOR EXPIRY + CVC */
 .f-grid{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 44px;              /* more like your screenshot spacing */
+  gap: 44px;              
   margin-top: 26px;
 }
 
-/* SAVE BUTTON */
 .card-save{
   display: block;
   width: min(520px, 92%);
-  margin: 60px auto 0;    /* lower like reference */
-  height: 52px;           /* was 36px */
-  border-radius: 12px;    /* smoother */
+  margin: 60px auto 0;    
+  height: 52px;          
+  border-radius: 12px;    
   border: 1px solid rgba(0,0,0,0.18);
   background: #F6EFD9;
   box-shadow: 0 6px 14px rgba(0,0,0,0.10);
